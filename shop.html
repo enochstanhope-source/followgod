@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Shop — EMMY STORE</title>
+    <link rel="stylesheet" href="styles/index.css" />
+    <link rel="stylesheet" href="styles/shop.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;400;600;700;900&display=swap" rel="stylesheet">
+    <!-- Lottie player for animated social icons -->
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@1.5.7/dist/lottie-player.js"></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="brand">
+          <a href="index.html" class="logo" aria-label="9TY9INE — Home">
+            <img src="images/logo.jpg" alt="9TY9INE logo" />
+          </a>
+          <button class="hamburger" id="hamburgerBtn" aria-controls="mobileMenu" aria-expanded="false" aria-label="Open menu">
+            <svg class="hamburger-open" aria-hidden="true" width="20" height="20" viewBox="0 0 432 384" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M0 336v-48h432v48H0zm0-120v-48h432v48H0zM0 48h432v48H0V48z"/></svg>
+            <svg class="hamburger-close icon-cancel" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 5L5 19M5 5l14 14"/></svg>
+          </button>
+          <nav class="brand-links" aria-label="Quick links">
+            <a class="small-link" href="shop.html">Shop</a>
+            <a class="small-link" href="shop.html?category=men">Men</a>
+            <a class="small-link" href="shop.html?category=women">Women</a>
+            <a class="small-link" href="login.html">Login</a>
+          </nav>
+        </div>
+        <nav class="top-actions">
+          <div class="search-wrap">
+            <input type="search" placeholder="Search everything" id="search" aria-label="Search" />
+          </div>
+          <a class="notif-btn cart" href="checkout.html" aria-label="Cart" aria-haspopup="true" aria-expanded="false">
+            <img src="icons/cart.svg" alt="Cart" width="20" height="20" aria-hidden="true" />
+            <span class="notif-badge" aria-hidden="false">0</span>
+          </a>
+        </nav>
+      </div>
+     <nav class="main-nav inconsolata-nav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="shop.html">Shop</a></li>
+        <li class="has-mega">
+          <a href="#" class="collections-link" aria-haspopup="true" aria-expanded="false">Collections</a>
+          <div class="mega-menu" role="menu" aria-hidden="true">
+            <div class="mega-columns">
+              <div class="mega-col">
+                <div class="mega-col-head">
+                  <img src="images/p1.jpeg" alt="New Arrivals" class="mega-col-logo" />
+                  <h4>NEW ARRIVALS</h4>
+                </div>
+              </div>
+              <div class="mega-col">
+                <div class="mega-col-head">
+                  <img src="images/p2.jpeg" alt="Best Sellers" class="mega-col-logo" />
+                  <h4>BEST SELLERS</h4>
+                </div>
+
+              </div>
+              <div class="mega-col">
+                <div class="mega-col-head">
+                  <img src="images/a1.jpg" alt="Casual Wear" class="mega-col-logo" />
+                  <h4>CAPS</h4>
+                </div>
+
+              </div>
+              <div class="mega-col">
+                <div class="mega-col-head">
+                  <img src="images/h1.jpg" alt="Workwear" class="mega-col-logo" />
+                  <h4>HOODIES</h4>
+                </div>
+
+              </div>
+              <div class="mega-col">
+                <div class="mega-col-head">
+                  <img src="images/blueshoe.jpg" alt="Footwear" class="mega-col-logo" />
+                  <h4>FOOTWEAR</h4>
+                </div>
+
+              </div>
+              <div class="mega-col">
+                <div class="mega-col-head">
+                  <img src="images/pnco.jpg" alt="Accessories" class="mega-col-logo" />
+                  <h4>FOR WOMEN</h4>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </li>
+          <li><a href="faq.html">FAQs</a></li>
+          <li><a href="login.html">Login</a></li>
+        </ul>
+      </nav>
+    </header>
+    <!-- Mobile off-canvas menu -->
+    <div id="mobileMenu" class="mobile-menu" role="dialog" aria-modal="true" aria-hidden="true">
+      <div class="mobile-menu-inner">
+        <nav class="brand-links mobile-brand-links" aria-label="Quick links">
+          <a class="small-link" href="shop.html">Shop</a>
+          <a class="small-link" href="shop.html?category=men">Men</a>
+          <a class="small-link" href="shop.html?category=women">Women</a>
+          <a class="small-link" href="login.html">Login</a>
+        </nav>
+        <nav class="mobile-main-nav">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li class="has-mega">
+              <a href="#" class="collections-link" aria-haspopup="true" aria-expanded="false">Collections</a>
+              <div class="mega-menu" role="menu" aria-hidden="true">
+                <div class="mega-columns">
+                  <div class="mega-col">
+                    <div class="mega-col-head">
+                      <img src="images/p1.jpeg" alt="New Arrivals" class="mega-col-logo" />
+                      <h4>NEW ARRIVALS</h4>
+                    </div>
+                  </div>
+                  <div class="mega-col">
+                    <div class="mega-col-head">
+                      <img src="images/p2.jpeg" alt="Best Sellers" class="mega-col-logo" />
+                      <h4>BEST SELLERS</h4>
+                    </div>
+                  </div>
+                  <div class="mega-col">
+                    <div class="mega-col-head">
+                      <img src="images/a1.jpg" alt="Casual Wear" class="mega-col-logo" />
+                      <h4>CAPS</h4>
+                    </div>
+                  </div>
+                  <div class="mega-col">
+                    <div class="mega-col-head">
+                      <img src="images/h1.jpg" alt="Workwear" class="mega-col-logo" />
+                      <h4>HOODIES</h4>
+                    </div>
+                  </div>
+                  <div class="mega-col">
+                    <div class="mega-col-head">
+                      <img src="images/blueshoe.jpg" alt="Footwear" class="mega-col-logo" />
+                      <h4>FOOTWEAR</h4>
+                    </div>
+                  </div>
+                  <div class="mega-col">
+                    <div class="mega-col-head">
+                      <img src="images/pnco.jpg" alt="Accessories" class="mega-col-logo" />
+                      <h4>FOR WOMEN</h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li><a href="faq.html">FAQs</a></li>
+            <li><a href="login.html">Login</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <div id="mobileMenuBackdrop" class="mobile-menu-backdrop hidden" aria-hidden="true"></div>
+
+    <main class="shop-page">
+      <div class="container catalog">
+        <div class="shop-head">
+          <h1>Shop</h1>
+          <div class="filters">
+            <label>Sort by
+              <select id="sortSelect">
+                <option value="default">Default</option>
+                <option value="price-asc">Price — Low to High</option>
+                <option value="price-desc">Price — High to Low</option>
+              </select>
+            </label>
+            <label>Categories
+              <select id="categorySelect">
+                <option value="all">All Categories</option>
+                <option value="new-arrivals">NEW ARRIVALS</option>
+                <option value="best-sellers">BEST SELLERS</option>
+                <option value="caps">CAPS</option>
+                <option value="hoodies">HOODIES</option>
+                <option value="footwear">FOOTWEAR</option>
+                <option value="women">FOR WOMEN</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div class="shop-grid" id="items" role="region" aria-label="Shop items">
+          <!-- Product cards are rendered by script/shop.js -->
+        </div>
+      </div>
+    </main>
+
+     <footer class="site-footer">
+    <div class="brand">
+      <a href="index.html" class="logo" aria-label="9TY9INE — Home">
+        <img src="images/logo.jpg" alt="9TY9INE logo" />
+      </a>
+    </div>
+    <div class="container footer-top">
+      <div class="footer-columns">
+        <div class="footer-col contact">
+          <h4>CONTACT US</h4>
+          <ul>
+            <li>
+              <span class="icon pin" aria-hidden="true">📍</span> 16
+              Valifeanyianyachukwu Becca court chevron drive.
+            </li>
+              <li>
+              <span class="icon mail" aria-hidden="true">✉️</span>
+              <a href="mailto:support@followgod.africa">support@followgod.africa</a>
+            </li>
+            <li>
+              <span class="icon phone" aria-hidden="true">📞</span>
+              <a href="tel:+2347019090044">+2347019090044</a>
+            </li>
+          </ul>
+        </div>
+        <div class="footer-col links">
+          <h4>QUICK LINK</h4>
+          <ul>
+            <li><a href="#">Policies</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col sublinks">
+          <h4>SUB LINK</h4>
+          <ul>
+            <li><a href="#">FAQs</a></li>
+            <li><a href="#">Shipping & Returns</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-right">
+        <div class="socials">
+          <a class="social x" href="#" aria-label="Xreal" data-tooltip="Xreal">
+            <img src="media%20icons/xreal.png" alt="Xreal" width="36" height="36" loading="lazy" />
+          </a>
+          <a class="social instagram" href="#" aria-label="instagram" data-tooltip="Instagram">
+            <lottie-player src="media%20icons/instagram%20(1).json" background="transparent" speed="1"
+              style="width: 36px; height: 36px" loop autoplay aria-label="instagram icon"></lottie-player>
+          </a>
+
+          <a class="social tiktok" href="#" aria-label="tiktok" data-tooltip="TikTok">
+            <lottie-player src="media%20icons/tiktok.json" background="transparent" speed="1"
+              style="width: 36px; height: 36px" loop autoplay aria-label="tiktok icon"></lottie-player>
+          </a>
+          <a class="social facebook" href="#" aria-label="facebook" data-tooltip="Facebook">
+            <lottie-player src="media%20icons/facebook.json" background="transparent" speed="1"
+              style="width: 36px; height: 36px" loop autoplay aria-label="facebook icon"></lottie-player>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="site-footer-bottom">
+      <div class="container narrow bottom-inner">
+        <div>&copy; FOLLOW GOD</div>
+        <div class="made-with">Built with <span class="byund">Byund Technology</span>
+          <a class="reach-us-btn" href="mailto:chuzzyenoch@gmail.com" target="_blank" rel="noopener" aria-label="Reach Us by Email">Reach Us</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+    <script src="script/index.js"></script>
+    <script src="script/shop.js"></script>
+  </body>
+</html>

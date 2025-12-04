@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FAQ — EMMY STORE</title>
+    <link rel="stylesheet" href="styles/index.css" />
+    <link rel="stylesheet" href="styles/faq.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;400;600;700;900&display=swap" rel="stylesheet">
+    <!-- Lottie player for animated social icons -->
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@1.5.7/dist/lottie-player.js"></script>
+  </head>
+  <body>
+    <!-- Top navigation / header -->
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="brand">
+          <a href="index.html" class="logo" aria-label="9TY9INE — Home">
+            <img src="images/logo.jpg" alt="9TY9INE logo" />
+          </a>
+          <button class="hamburger" id="hamburgerBtn" aria-controls="mobileMenu" aria-expanded="false" aria-label="Open menu">
+            <svg class="hamburger-open" aria-hidden="true" width="20" height="20" viewBox="0 0 432 384" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M0 336v-48h432v48H0zm0-120v-48h432v48H0zM0 48h432v48H0V48z"/></svg>
+            <svg class="hamburger-close icon-cancel" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 5L5 19M5 5l14 14"/></svg>
+          </button>
+          <nav class="brand-links" aria-label="Quick links">
+            <a class="small-link" href="shop.html">Shop</a>
+            <a class="small-link" href="shop.html?category=men">Men</a>
+            <a class="small-link" href="shop.html?category=women">Women</a>
+            <a class="small-link" href="login.html">Login</a>
+          </nav>
+        </div>
+        <nav class="top-actions">
+          <div class="search-wrap">
+            <input type="search" placeholder="Search everything" id="search" aria-label="Search" />
+          </div>
+          <a class="notif-btn cart" href="checkout.html" aria-label="Cart" aria-haspopup="true" aria-expanded="false">
+            <img src="icons/cart.svg" alt="Cart" width="20" height="20" aria-hidden="true" />
+            <span class="notif-badge" aria-hidden="false">0</span>
+          </a>
+        </nav>
+      </div>
+    <nav class="main-nav inconsolata-nav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li class="has-mega">
+          <a href="#" class="collections-link" aria-haspopup="true" aria-expanded="false">Collections</a>
+          <div class="mega-menu" role="menu" aria-hidden="true">
+            <div class="mega-columns">
+              <div class="mega-col">
+                <div class="mega-col-head">
+                  <img src="images/p1.jpeg" alt="New Arrivals" class="mega-col-logo" />
+                  <h4>NEW ARRIVALS</h4>
+                </div>
+              </div>
+              <div class="mega-col">
+                <div class="mega-col-head">
+                  <img src="images/p2.jpeg" alt="Best Sellers" class="mega-col-logo" />
+                  <h4>BEST SELLERS</h4>
+                </div>
+
+              </div>
+              <div class="mega-col">
+                <div class="mega-col-head">
+                  <img src="images/a1.jpg" alt="Casual Wear" class="mega-col-logo" />
+                  <h4>CAPS</h4>
+                </div>
+
+              </div>
+              <div class="mega-col">
+                <div class="mega-col-head">
+                  <img src="images/h1.jpg" alt="Workwear" class="mega-col-logo" />
+                  <h4>HOODIES</h4>
+                </div>
+
+              </div>
+              <div class="mega-col">
+                <div class="mega-col-head">
+                  <img src="images/blueshoe.jpg" alt="Footwear" class="mega-col-logo" />
+                  <h4>FOOTWEAR</h4>
+                </div>
+
+              </div>
+              <div class="mega-col">
+                <div class="mega-col-head">
+                  <img src="images/pnco.jpg" alt="Accessories" class="mega-col-logo" />
+                  <h4>FOR WOMEN</h4>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </li>
+          <li><a href="faq.html">FAQs</a></li>
+          <li><a href="login.html">Login</a></li>
+        </ul>
+      </nav>
+    </header>
+    <!-- Mobile off-canvas menu -->
+    <div id="mobileMenu" class="mobile-menu" role="dialog" aria-modal="true" aria-hidden="true">
+      <div class="mobile-menu-inner">
+        <nav class="brand-links mobile-brand-links" aria-label="Quick links">
+          <a class="small-link" href="shop.html">Shop</a>
+          <a class="small-link" href="shop.html?category=men">Men</a>
+          <a class="small-link" href="shop.html?category=women">Women</a>
+          <a class="small-link" href="login.html">Login</a>
+        </nav>
+        <nav class="mobile-main-nav">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li class="has-mega">
+              <a href="#" class="collections-link" aria-haspopup="true" aria-expanded="false">Collections</a>
+              <div class="mega-menu" role="menu" aria-hidden="true">
+                <div class="mega-columns">
+                  <div class="mega-col">
+                    <div class="mega-col-head">
+                      <img src="images/p1.jpeg" alt="New Arrivals" class="mega-col-logo" />
+                      <h4>NEW ARRIVALS</h4>
+                    </div>
+                  </div>
+                <!-- minimal listing for mobile menu in FAQ -->
+                </div>
+              </div>
+            </li>
+            <li><a href="faq.html">FAQs</a></li>
+            <li><a href="login.html">Login</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <div id="mobileMenuBackdrop" class="mobile-menu-backdrop hidden" aria-hidden="true"></div>
+
+    <!-- Hero -->
+    <section class="faq-hero">
+      <div class="container">
+        <h1>FAQ</h1>
+      </div>
+    </section>
+
+    <!-- FAQ content -->
+    <main class="faq-page">
+      <div class="container narrow">
+        <h2>Frequently Asked Questions</h2>
+          <div class="faq-list" id="faqList">
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="true">Do I have to create an account or register before shopping?</button>
+            <div class="faq-a" role="region">No you don't, simply fill your delivery details at checkout</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">Are your outfits readily available for dispatch?</button>
+            <div class="faq-a" role="region">Most of our items are in stock and dispatched within 2-3 working days. Some made-to-order pieces may take longer.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">How long does delivery take?</button>
+            <div class="faq-a" role="region">Delivery times depend on your location. Local deliveries are usually 2-5 business days, while international may take longer.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">I placed an order but I didn't get any mail from you?</button>
+            <div class="faq-a" role="region">Check your spam folder or contact support at <a href="mailto:support@followgod.africa">support@followgod.africa</a> and we'll assist you.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">Do you take custom orders?</button>
+            <div class="faq-a" role="region">Yes! For bespoke orders, please contact our team to discuss requirements and lead times.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">What are your terms for exchange?</button>
+            <div class="faq-a" role="region">We accept exchanges for unworn items within 7 days of delivery. Contact our support team for assistance with an exchange.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">How do I know the size to order?</button>
+            <div class="faq-a" role="region">Refer to our size guide included on each product page, or reach out for personal sizing help.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">Is shopping on 9ty9ine safe?</button>
+            <div class="faq-a" role="region">Yes, we use industry-standard payment processing and data security measures to keep transactions safe.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">How can I get discounts?</button>
+            <div class="faq-a" role="region">Subscribe to our newsletter and follow our social channels for exclusive offers and promotions.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">Do you have a walk in store?</button>
+            <div class="faq-a" role="region">Yes, we have a physical store - contact us for location and opening hours.</div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Floating contact button (Email) -->
+    <a class="contact" href="mailto:chuzzyenoch@gmail.com">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="#fff" aria-hidden="true"><path d="M20.52 3.48A11.78 11.78 0 0012 0a11.96 11.96 0 00-1 .06 11.86 11.86 0 00-8.34 4.2A11.96 11.96 0 000 12a11.8 11.8 0 003.48 8.52A12.12 12.12 0 0012 24a11.97 11.97 0 008.52-3.48A11.78 11.78 0 0024 12a11.81 11.81 0 00-3.48-8.52zM12 21.43a9.36 9.36 0 01-5.3-1.6L4 19l1.8-2.6A9.29 9.29 0 012.57 12 9.37 9.37 0 0112 2.57 9.39 9.39 0 0121.43 12 9.36 9.36 0 0112 21.43z"/></svg>
+    </a>
+
+     <footer class="site-footer">
+    <div class="brand">
+      <a href="index.html" class="logo" aria-label="9TY9INE — Home">
+        <img src="images/logo.jpg" alt="9TY9INE logo" />
+      </a>
+    </div>
+    <div class="container footer-top">
+      <div class="footer-columns">
+        <div class="footer-col contact">
+          <h4>CONTACT US</h4>
+          <ul>
+            <li>
+              <span class="icon pin" aria-hidden="true">📍</span> 16
+              Valifeanyianyachukwu Becca court chevron drive.
+            </li>
+              <li>
+              <span class="icon mail" aria-hidden="true">✉️</span>
+              <a href="mailto:support@followgod.africa">support@followgod.africa</a>
+            </li>
+            <li>
+              <span class="icon phone" aria-hidden="true">📞</span>
+              <a href="tel:+2347019090044">+2347019090044</a>
+            </li>
+          </ul>
+        </div>
+        <div class="footer-col links">
+          <h4>QUICK LINK</h4>
+          <ul>
+            <li><a href="#">Policies</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col sublinks">
+          <h4>SUB LINK</h4>
+          <ul>
+            <li><a href="#">FAQs</a></li>
+            <li><a href="#">Shipping & Returns</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-right">
+        <div class="socials">
+          <a class="social x" href="#" aria-label="Xreal" data-tooltip="Xreal">
+            <img src="media%20icons/xreal.png" alt="Xreal" width="36" height="36" loading="lazy" />
+          </a>
+          <a class="social instagram" href="#" aria-label="instagram" data-tooltip="Instagram">
+            <lottie-player src="media%20icons/instagram%20(1).json" background="transparent" speed="1"
+              style="width: 36px; height: 36px" loop autoplay aria-label="instagram icon"></lottie-player>
+          </a>
+
+          <a class="social tiktok" href="#" aria-label="tiktok" data-tooltip="TikTok">
+            <lottie-player src="media%20icons/tiktok.json" background="transparent" speed="1"
+              style="width: 36px; height: 36px" loop autoplay aria-label="tiktok icon"></lottie-player>
+          </a>
+          <a class="social facebook" href="#" aria-label="facebook" data-tooltip="Facebook">
+            <lottie-player src="media%20icons/facebook.json" background="transparent" speed="1"
+              style="width: 36px; height: 36px" loop autoplay aria-label="facebook icon"></lottie-player>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="site-footer-bottom">
+      <div class="container narrow bottom-inner">
+        <div>&copy; FOLLOW GOD</div>
+        <div class="made-with">Built with <span class="byund">Byund Technology</span>
+          <a class="reach-us-btn" href="mailto:chuzzyenoch@gmail.com" target="_blank" rel="noopener" aria-label="Reach Us by Email">Reach Us</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+    <script src="script/index.js"></script>
+    <script src="script/faq.js"></script>
+  </body>
+</html>

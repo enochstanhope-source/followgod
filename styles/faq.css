@@ -1,0 +1,86 @@
+/* FAQ page styles */
+.faq-hero{ background:#000; color:#fff; padding:90px 0; text-align:center; }
+.faq-hero h1{ font-size:36px; margin:0; font-weight:600; letter-spacing:2px; }
+.breadcrumb{ padding:12px 24px; border-top:1px solid #f0f0f0; border-bottom:1px solid #f0f0f0; background:#fff; }
+.breadcrumb small{ color:#999; }
+.faq-page{ padding:56px 0 120px; }
+.faq-page h2{ text-align:center; font-size:26px; margin-bottom:28px; color:#333; }
+.faq-list{ max-width:760px; margin:0 auto; }
+.faq-item{ border:1px solid #e6e6e6; margin-bottom:8px; border-radius:2px; overflow:hidden; }
+.faq-q{ display:flex; align-items:center; justify-content:space-between; width:100%; padding:14px 18px; background:#fff; border:none; font-size:13px; cursor:pointer; text-align:left; position:relative; /* questions */
+  text-transform:uppercase; /* make question text capital */
+  font-weight:600; /* stronger visual weight */
+  letter-spacing:0.07em; /* improved readability for uppercase */
+  color:#0b2545; /* slightly darker professional tone */
+  font-family: Roboto, Arial;
+}
+.faq-q[aria-expanded="true"]{ background:#e9f2ff; }
+/* Plus/minus icon on the right */
+.faq-q::after{ content: '+'; font-weight:700; display:inline-block; width:26px; height:26px; line-height:26px; border-radius:50%; background:transparent; color:#333; text-align:center; border:1px solid rgba(0,0,0,.06); transform:rotate(0deg); transition:transform .32s cubic-bezier(.2,.8,.2,1), background-color .15s ease, color .15s ease; }
+.faq-q[aria-expanded="true"]::after{ content: '\2212'; background:transparent; color:#111; transform:rotate(180deg); }
+.faq-a{ padding:0 18px; font-size:14px; color:#0000009f; height:0; overflow:hidden; transition: padding .32s cubic-bezier(.2,.8,.2,1), color .15s ease, background-color .18s ease; /* answers */
+  text-transform:none; /* normal text — JS ensures sentence starts are capitalized */
+  font-weight:400; /* regular weight for body text */
+  line-height: 1.45; /* reduced, more compact but readable */
+  background:#fbfdff; /* subtle panel background for answers */
+  border-left:4px solid rgba(11,37,69,0.06); /* soft left accent */
+  font-family: 'Open Sans', Arial; /* more readable font for body text */
+  letter-spacing:0.04em; /* improved readability for uppercase */
+  }
+
+  .faq-a-inner{ opacity:0; transform:translateY(-6px); transition: opacity .32s cubic-bezier(.2,.8,.2,1), transform .32s cubic-bezier(.2,.8,.2,1); will-change: transform, opacity; padding:0 18px; box-sizing:border-box; }
+  .faq-item.expanded .faq-a-inner{ opacity:1; transform:none; padding:10px 18px; }
+
+/* When the panel is animating, hint the browser to optimize the transition */
+.faq-a[data-animating="true"]{ will-change: height; }
+
+/* Reduce paragraph margins inside answers to avoid extra vertical spacing */
+.faq-a p{ margin:0 0 8px 0; }
+.faq-a p:last-child{ margin-bottom:0; }
+
+@media (max-width: 640px){
+  .faq-hero{ padding:56px 0; }
+  .faq-hero h1{ font-size:30px; }
+  .faq-list{ padding:0 8px; }
+  .faq-q::after{ width:30px; height:30px; line-height:30px; font-size:18px; }
+}
+
+/* Prevent the footer from 'moving' when the FAQ accordion expands.
+   We scope this to only apply when the footer directly follows the FAQ main
+   content using the adjacent sibling selector — this avoids affecting other pages.
+   The page content gets safe bottom padding so the fixed footer never overlaps it. */
+main.faq-page + .site-footer{
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 999;
+  margin-top: 0; /* override any top margin so footer sits flush */
+}
+
+/* Provide a safe content area so expanding FAQ answers won't be hidden behind the fixed footer. */
+main.faq-page{
+  padding-bottom: 240px; /* adjust if footer height changes */
+}
+
+/* Improve mobile behaviour */
+@media (max-width: 640px){
+  /* On small screens the footer likely becomes taller; increase safe padding */
+  main.faq-page{ padding-bottom: 320px; }
+}
+
+/* Hide the blinking text caret for non-input elements inside the FAQ/hero areas.
+   Keep the caret visible for real form controls (inputs, textareas) and any
+   contenteditable elements (also explicitly keep `#search`). */
+.faq-hero *, .faq-page * {
+  caret-color: transparent !important;
+}
+
+/* Restore caret for actual editable controls */
+.faq-hero input, .faq-page input, .faq-hero textarea, .faq-page textarea,
+.faq-hero select, .faq-page select, .faq-hero [contenteditable], .faq-page [contenteditable],
+#search {
+  caret-color: auto !important;
+}
+

@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sign up — EMMY STORE</title>
+    <link rel="stylesheet" href="styles/index.css" />
+    <link rel="stylesheet" href="styles/signup.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Roboto for small body copy like auth extras -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;400;600;700;900&display=swap"
+        rel="stylesheet">
+    <!-- Lottie player for animated social icons -->
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@1.5.7/dist/lottie-player.js"></script>
+</head>
+
+<body class="login-page">
+    <!-- Top navigation / header -->
+    <header class="topbar">
+        <div class="topbar-inner">
+            <div class="brand">
+                <a href="index.html" class="logo" aria-label="9TY9INE — Home">
+                    <img src="images/logo.jpg" alt="9TY9INE logo" />
+                </a>
+                <button class="hamburger" id="hamburgerBtn" aria-controls="mobileMenu" aria-expanded="false" aria-label="Open menu">
+                    <svg class="hamburger-open" aria-hidden="true" width="20" height="20" viewBox="0 0 432 384" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M0 336v-48h432v48H0zm0-120v-48h432v48H0zM0 48h432v48H0V48z"/></svg>
+                    <svg class="hamburger-close icon-cancel" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 5L5 19M5 5l14 14"/></svg>
+                </button>
+                <nav class="brand-links" aria-label="Quick links">
+                    <a class="small-link" href="shop.html">Shop</a>
+                    <a class="small-link" href="shop.html?category=men">Men</a>
+                    <a class="small-link" href="shop.html?category=women">Women</a>
+                    <a class="small-link" href="login.html">Login</a>
+                </nav>
+            </div>
+            <nav class="top-actions">
+                <div class="search-wrap">
+                    <input type="search" placeholder="Search everything" id="search" aria-label="Search" />
+                </div>
+                <a class="notif-btn cart" href="checkout.html" aria-label="Cart" aria-haspopup="true"
+                    aria-expanded="false">
+                    <img src="icons/cart.svg" alt="Cart" width="20" height="20" aria-hidden="true" />
+                    <span class="notif-badge" aria-hidden="false">0</span>
+                </a>
+            </nav>
+        </div>
+                <div id="mobileMenu" class="mobile-menu" role="dialog" aria-modal="true" aria-hidden="true">
+            <div class="mobile-menu-inner">
+                <nav class="brand-links mobile-brand-links" aria-label="Quick links">
+                    <a class="small-link" href="shop.html">Shop</a>
+                    <a class="small-link" href="shop.html?category=men">Men</a>
+                    <a class="small-link" href="shop.html?category=women">Women</a>
+                    <a class="small-link" href="login.html">Login</a>
+                </nav>
+                <nav class="mobile-main-nav">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="shop.html">Shop</a></li>
+                        <li class="has-mega">
+                            <a href="#" class="collections-link" aria-haspopup="true" aria-expanded="false">Collections</a>
+                            <div class="mega-menu" role="menu" aria-hidden="true">
+                                <div class="mega-columns">
+                                    <div class="mega-col">
+                                        <div class="mega-col-head">
+                                            <img src="images/p1.jpeg" alt="New Arrivals" class="mega-col-logo" />
+                                            <h4>NEW ARRIVALS</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li><a href="faq.html">FAQs</a></li>
+                        <li><a href="login.html">Login</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div id="mobileMenuBackdrop" class="mobile-menu-backdrop hidden" aria-hidden="true"></div>
+        <nav class="main-nav inconsolata-nav">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                       <li class="has-mega">
+          <a href="#" class="collections-link" aria-haspopup="true" aria-expanded="false">Collections</a>
+          <div class="mega-menu" role="menu" aria-hidden="true">
+            <div class="mega-columns">
+              <div class="mega-col">
+                <div class="mega-col-head">
+                  <img src="images/p1.jpeg" alt="New Arrivals" class="mega-col-logo" />
+                  <h4>NEW ARRIVALS</h4>
+                </div>
+              </div>
+              <div class="mega-col">
+                <div class="mega-col-head">
+                  <img src="images/p2.jpeg" alt="Best Sellers" class="mega-col-logo" />
+                  <h4>BEST SELLERS</h4>
+                </div>
+
+              </div>
+              <div class="mega-col">
+                <div class="mega-col-head">
+                  <img src="images/a1.jpg" alt="Casual Wear" class="mega-col-logo" />
+                  <h4>CAPS</h4>
+                </div>
+
+              </div>
+              <div class="mega-col">
+                <div class="mega-col-head">
+                  <img src="images/h1.jpg" alt="Workwear" class="mega-col-logo" />
+                  <h4>HOODIES</h4>
+                </div>
+
+              </div>
+              <div class="mega-col">
+                <div class="mega-col-head">
+                  <img src="images/blueshoe.jpg" alt="Footwear" class="mega-col-logo" />
+                  <h4>FOOTWEAR</h4>
+                </div>
+
+              </div>
+              <div class="mega-col">
+                <div class="mega-col-head">
+                  <img src="images/pnco.jpg" alt="Accessories" class="mega-col-logo" />
+                  <h4>FOR WOMEN</h4>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </li>
+                <li><a href="faq.html">FAQs</a></li>
+                <li><a href="login.html">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container login-page">
+        <section class="login-card split" aria-labelledby="signupHeading">
+            <aside class="card-art" aria-hidden="true"></aside>
+            <div class="card-inner premium">
+
+                <h1 id="signupHeading">Create Account</h1>
+
+                <form id="signupForm" autocomplete="off" novalidate>
+                    <!-- Row 1: full name, email, phone -->
+                    <div class="form-row three">
+                        <div class="form-group">
+                            <label for="fullName">Full name</label>
+                            <input id="fullName" name="fullName" type="text" placeholder="First and last name" required
+                                aria-describedby="fullNameHelp" autocomplete="name" autocapitalize="words" autofocus />
+                            <span id="fullNameHelp" class="form-help">Use your legal name.</span>
+                            <span class="error-msg" id="fullNameError" aria-live="polite"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input id="email" name="email" type="email" placeholder="Enter your email" required
+                                aria-describedby="emailHelp" autocomplete="off" autocapitalize="none" />
+                            <span id="emailHelp" class="form-help">We'll use this to sign you in.</span>
+                            <span class="error-msg" id="emailError" aria-live="polite"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone number</label>
+                            <input id="phone" name="phone" type="tel" inputmode="numeric" maxlength="11" pattern="[0-9]{11}" title="Enter an 11-digit phone number" placeholder="e.g. 09162311111" required aria-describedby="phoneHelp" autocomplete="tel" />
+                            <span id="phoneHelp" class="form-help">Used for order updates and 2FA.</span>
+                            <span class="error-msg" id="phoneError" aria-live="polite"></span>
+                        </div>
+                    </div>
+
+                    <!-- address moved into row 2 below -->
+
+                    <!-- Row 2: address, password, confirm password -->
+                    <div class="form-row three">
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <input id="address" name="address" type="text" placeholder="Delivery address — street, city, country" required
+                                aria-describedby="addressHelp" autocomplete="street-address" />
+                            <span id="addressHelp" class="form-help">Delivery address — where we’ll ship purchases.</span>
+                            <span class="error-msg" id="addressError" aria-live="polite"></span>
+                        </div>
+                        <div class="form-group password-group">
+                            <label for="password">Password</label>
+                            <div class="password-wrap">
+                                <input id="password" name="password" type="password" placeholder="At least 6 characters"
+                                    required minlength="6" aria-describedby="passwordHelp"
+                                    autocomplete="new-password" />
+                                <button type="button" class="toggle-password" id="togglePassword" aria-pressed="false"
+                                    aria-label="Show password" title="Show password">
+                                    <!-- Eye open -->
+                                    <svg class="eye-open" width="18" height="18" viewBox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <path fill="currentColor"
+                                            d="M12 5c-7 0-11 7-11 7s4 7 11 7 11-7 11-7-4-7-11-7zm0 11a4 4 0 1 1 0-8 4 4 0 0 1 0 8z" />
+                                    </svg>
+                                    <!-- Eye closed -->
+                                    <svg class="eye-closed" width="18" height="18" viewBox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <path fill="currentColor"
+                                            d="M19.2 4.8L4.8 19.2 6.2 20.6 20.6 6.2zM2 12s4-7 10-7c2.2 0 4.2.6 6 1.7L17.9 10a4 4 0 0 0-5.9 5.3l-1.4 1.4C8 16.9 4 12 4 12z" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <span id="passwordHelp" class="form-help">Minimum 6 characters.</span>
+                            <span class="error-msg" id="passwordError" aria-live="polite"></span>
+                        </div>
+                        <div class="form-group password-group">
+                            <label for="confirmPassword">Confirm password</label>
+                            <div class="password-wrap">
+                                <input id="confirmPassword" name="confirmPassword" type="password"
+                                    placeholder="Repeat your password" required minlength="6"
+                                    aria-describedby="confirmPasswordHelp" autocomplete="new-password" />
+                                <button type="button" class="toggle-password" id="toggleConfirmPassword"
+                                    aria-pressed="false" aria-label="Show confirm password"
+                                    title="Show confirm password">
+                                    <svg class="eye-open" width="18" height="18" viewBox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <path fill="currentColor"
+                                            d="M12 5c-7 0-11 7-11 7s4 7 11 7 11-7 11-7-4-7-11-7zm0 11a4 4 0 1 1 0-8 4 4 0 0 1 0 8z" />
+                                    </svg>
+                                    <svg class="eye-closed" width="18" height="18" viewBox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <path fill="currentColor"
+                                            d="M19.2 4.8L4.8 19.2 6.2 20.6 20.6 6.2zM2 12s4-7 10-7c2.2 0 4.2.6 6 1.7L17.9 10a4 4 0 0 0-5.9 5.3l-1.4 1.4C8 16.9 4 12 4 12z" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <span id="confirmPasswordHelp" class="form-help">Re-enter your password.</span>
+                            <span class="error-msg" id="confirmPasswordError" aria-live="polite"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <label class="remember">
+                            <input id="subscribe" type="checkbox" name="subscribe" /> Keep me informed
+                        </label>
+                        <a class="link muted small" href="login.html">Already have an account?</a>
+                    </div>
+
+                    <div class="form-cta">
+                        <button type="submit" class="btn btn-primary" id="signUpBtn">Create account</button>
+                    </div>
+
+                    <div class="divider"><span>or</span></div>
+
+                    <div class="social-cta">
+                        <button type="button" class="btn btn-outline google" id="googleSignIn"
+                            aria-label="Sign up with Google" title="Sign up with Google">
+                            <svg width="18" height="18" viewBox="0 0 533.5 544.3" xmlns="http://www.w3.org/2000/svg"
+                                focusable="false" aria-hidden="true">
+                                <path fill="#4285f4"
+                                    d="M533.5 278.4c0-18.4-1.5-36.1-4.5-53.4H272v100.9h146.9c-6.3 34.2-25.9 63.2-55.3 82.6v68.7h89.4c52.3-48.1 81.5-119.5 81.5-198.8z" />
+                                <path fill="#34a853"
+                                    d="M272 544.3c74.1 0 136.2-24.6 181.6-66.9l-89.4-68.7c-25 16.8-57 26.9-92.2 26.9-71.2 0-131.5-48.1-153-112.6H28.8v70.6C74.9 491.4 168.7 544.3 272 544.3z" />
+                                <path fill="#fbbc04"
+                                    d="M118.9 321.1c-11.3-33.9-11.3-70.5 0-104.4V146.1H28.8c-40.4 78.8-40.4 171.8 0 250.6l90.1-75.6z" />
+                                <path fill="#ea4335"
+                                    d="M272 109.2c39.3 0 74.7 13.5 102.6 40.3l77-77C405.5 24.1 343.4 0 272 0 168.7 0 74.9 52.9 28.8 146.1l90.1 70.6C140.5 157.3 200.8 109.2 272 109.2z" />
+                            </svg>
+                            <span>Sign up with Google</span>
+                        </button>
+                    </div>
+
+                    <div class="auth-extra">
+                        <p class="muted small">Already have an account? <a href="login.html">Sign in</a></p>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+
+    <script src="script/index.js" defer></script>
+    <script src="script/signup.js" defer></script>
+</body>
+
+</html>

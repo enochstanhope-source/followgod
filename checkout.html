@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Checkout — EMMY STORE</title>
+    <link rel="stylesheet" href="styles/index.css" />
+    <link rel="stylesheet" href="styles/checkout.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Lottie player for animated social icons -->
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@1.5.7/dist/lottie-player.js"></script>
+  </head>
+  <body>
+    <header class="topbar">
+        <div class="topbar-inner">
+        <div class="brand">
+          <a href="index.html" class="logo" aria-label="9TY9INE — Home">
+            <img src="images/logo.jpg" alt="9TY9INE logo" />
+          </a>
+          <!-- Mobile hamburger button (left side) -->
+          <button class="hamburger" id="hamburgerBtn" aria-controls="mobileMenu" aria-expanded="false" aria-label="Open menu">
+            <svg class="hamburger-open" aria-hidden="true" width="20" height="20" viewBox="0 0 432 384" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M0 336v-48h432v48H0zm0-120v-48h432v48H0zM0 48h432v48H0V48z"/></svg>
+            <svg class="hamburger-close icon-cancel" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 5L5 19M5 5l14 14"/></svg>
+          </button>
+          <nav class="brand-links" aria-label="Quick links">
+            <a class="small-link" href="shop.html">Shop</a>
+            <a class="small-link" href="shop.html?category=men">Men</a>
+            <a class="small-link" href="shop.html?category=women">Women</a>
+            <a class="small-link" href="login.html">Login</a>
+          </nav>
+        </div>
+        <nav class="top-actions">
+          <div class="search-wrap">
+            <input type="search" placeholder="Search everything" id="search" aria-label="Search" />
+          </div>
+          <a class="notif-btn cart" href="checkout.html" aria-label="Cart" aria-haspopup="true" aria-expanded="false">
+            <img src="icons/cart.svg" alt="Cart" width="20" height="20" aria-hidden="true" />
+            <span class="notif-badge" aria-hidden="false">0</span>
+          </a>
+        </nav>
+      </div>
+      <!-- Mobile off-canvas menu -->
+      <div id="mobileMenu" class="mobile-menu" role="dialog" aria-modal="true" aria-hidden="true">
+        <div class="mobile-menu-inner">
+          <nav class="brand-links mobile-brand-links" aria-label="Quick links">
+            <a class="small-link" href="shop.html">Shop</a>
+            <a class="small-link" href="shop.html?category=men">Men</a>
+            <a class="small-link" href="shop.html?category=women">Women</a>
+            <a class="small-link" href="login.html">Login</a>
+          </nav>
+          <nav class="mobile-main-nav">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li class="has-mega">
+                  <a href="#" class="collections-link" aria-haspopup="true" aria-expanded="false">Collections</a>
+                  <div class="mega-menu" role="menu" aria-hidden="true">
+                    <div class="mega-columns">
+                      <div class="mega-col">
+                        <div class="mega-col-head">
+                          <img src="images/p1.jpeg" alt="New Arrivals" class="mega-col-logo" />
+                          <h4>NEW ARRIVALS</h4>
+                        </div>
+                      </div>
+                      <div class="mega-col">
+                        <div class="mega-col-head">
+                          <img src="images/p2.jpeg" alt="Best Sellers" class="mega-col-logo" />
+                          <h4>BEST SELLERS</h4>
+                        </div>
+                      </div>
+                      <div class="mega-col">
+                        <div class="mega-col-head">
+                          <img src="images/a1.jpg" alt="Casual Wear" class="mega-col-logo" />
+                          <h4>CAPS</h4>
+                        </div>
+                      </div>
+                      <div class="mega-col">
+                        <div class="mega-col-head">
+                          <img src="images/h1.jpg" alt="Workwear" class="mega-col-logo" />
+                          <h4>HOODIES</h4>
+                        </div>
+                      </div>
+                      <div class="mega-col">
+                        <div class="mega-col-head">
+                          <img src="images/blueshoe.jpg" alt="Footwear" class="mega-col-logo" />
+                          <h4>FOOTWEAR</h4>
+                        </div>
+                      </div>
+                      <div class="mega-col">
+                        <div class="mega-col-head">
+                          <img src="images/pnco.jpg" alt="Accessories" class="mega-col-logo" />
+                          <h4>FOR WOMEN</h4>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li><a href="faq.html">FAQs</a></li>
+                <li><a href="login.html">Login</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+      <div id="mobileMenuBackdrop" class="mobile-menu-backdrop hidden" aria-hidden="true"></div>
+      <nav class="main-nav inconsolata-nav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li class="has-mega">
+          <a href="#" class="collections-link" aria-haspopup="true" aria-expanded="false">Collections</a>
+          <div class="mega-menu" role="menu" aria-hidden="true">
+            <div class="mega-columns">
+              <div class="mega-col">
+                <div class="mega-col-head">
+                  <img src="images/p1.jpeg" alt="New Arrivals" class="mega-col-logo" />
+                  <h4>NEW ARRIVALS</h4>
+                </div>
+              </div>
+              <div class="mega-col">
+                <div class="mega-col-head">
+                  <img src="images/p2.jpeg" alt="Best Sellers" class="mega-col-logo" />
+                  <h4>BEST SELLERS</h4>
+                </div>
+
+              </div>
+              <div class="mega-col">
+                <div class="mega-col-head">
+                  <img src="images/a1.jpg" alt="Casual Wear" class="mega-col-logo" />
+                  <h4>CAPS</h4>
+                </div>
+
+              </div>
+              <div class="mega-col">
+                <div class="mega-col-head">
+                  <img src="images/h1.jpg" alt="Workwear" class="mega-col-logo" />
+                  <h4>HOODIES</h4>
+                </div>
+
+              </div>
+              <div class="mega-col">
+                <div class="mega-col-head">
+                  <img src="images/blueshoe.jpg" alt="Footwear" class="mega-col-logo" />
+                  <h4>FOOTWEAR</h4>
+                </div>
+
+              </div>
+              <div class="mega-col">
+                <div class="mega-col-head">
+                  <img src="images/pnco.jpg" alt="Accessories" class="mega-col-logo" />
+                  <h4>FOR WOMEN</h4>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </li>
+          <li><a href="faq.html">FAQs</a></li>
+          <li><a href="login.html">Login</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="checkout-page">
+      <div class="container catalog">
+        <div class="checkout-head">
+          <h1>Checkout</h1>
+          <p class="lead">You're just a few steps away from getting your order — fast, secure and premium delivery.</p>
+          <div class="checkout-hero">
+            <div class="checkout-steps">
+              <div class="step active"><span>1</span><small>Shipping</small></div>
+              <div class="step"><span>2</span><small>Payment</small></div>
+              <div class="step"><span>3</span><small>Review</small></div>
+            </div>
+          </div>
+        </div>
+
+          <div class="checkout-grid">
+          <div class="checkout-left">
+
+
+            <section class="shipping card">
+              <h3>Shipping Address Details</h3>
+              <form id="checkoutForm">
+                <label for="fullName">Full Name</label>
+                <input id="fullName" type="text" placeholder="Your full name">
+
+                <!-- Email field removed per request -->
+
+                <div>
+                  <label for="phone">Phone</label>
+                  <input id="phone" type="tel" inputmode="numeric" pattern="[0-9]{11}" title="Enter an 11-digit phone number" maxlength="11" placeholder="e.g 07031111111" aria-describedby="phoneHelp" autocomplete="tel">
+               
+                </div>
+
+                <label for="address">Delivery address</label>
+                <input id="address" name="address" type="text" placeholder="Enter your address" aria-describedby="addressHelp" autocomplete="street-address">
+              
+              </form>
+            </section>
+          </div>
+          
+          <aside class="checkout-right">
+            <div class="order-summary">
+              <div class="summary-header">
+                <h3>Your Order</h3>
+              </div>
+              <div class="summary-row headers">
+                <span>Product</span>
+                <span>Total</span>
+              </div>
+              <div id="orderItems"></div>
+              <!-- Cart Subtotal removed per UX request -->
+              <div class="summary-row">
+                <strong>Order Total</strong>
+                <span id="orderTotal">₦0.00</span>
+              </div>
+              <button id="placeOrder" type="button" class="btn btn-add large">Place Order</button>
+              <span id="orderError" class="form-error hidden" role="alert" aria-live="assertive">Cart is empty</span>
+              <button id="clearCart" type="button" class="btn btn-remove large" style="margin-top:10px;">Clear Cart</button>
+              
+              <!-- ORDER NOW button is created dynamically after invoice generation -->
+            </div>
+          </aside>
+        </div>
+      </div>
+    </main>
+  
+    <!-- Clear Cart Confirmation Modal -->
+    <div id="clearCartModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-hidden="true">
+      <div class="modal-dialog" role="document" aria-labelledby="clearCartTitle" aria-describedby="clearCartDesc">
+        <h3 id="clearCartTitle">Clear your cart?</h3>
+        <p id="clearCartDesc">This will remove all items from your cart.</p>
+        <div class="modal-actions">
+          <button id="clearCartConfirm" class="btn btn-remove">Yes, clear cart</button>
+          <button id="clearCartCancel" class="btn secondary">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PDF Share Modal removed per request -->
+
+    <!-- Order success / invoice generated modal has been removed by request -->
+
+    <!-- WhatsApp features removed. Invoice is generated and user can preview/download/share. -->
+
+  
+    <script src="script/index.js"></script>
+    <!-- Firebase SDK and functions removed. -->
+
+    <script src="script/checkout.js"></script>
+  </body>
+  </html>

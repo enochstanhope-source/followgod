@@ -1,0 +1,502 @@
+/* Signup page styles (copied from login to keep consistent layout) */
+:root {
+    --bg: #f8f9fb;
+    --card: #ffffff;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --accent: #0f62fe;
+    --danger: #ef4444;
+    --input-bg: #f4f6f9;
+}
+
+body.login-page, .login-page {
+    background: linear-gradient(180deg, rgb(255, 255, 255), var(--bg));
+}
+
+
+
+.login-card.split {
+      display: grid;
+      /* Give the artwork column flexible space and allow a larger form column
+          so inputs can expand on wider screens without getting overridden. */
+    grid-template-columns: 1fr minmax(920px, 1300px);
+      padding-right: 0;
+}
+
+/* Add a more rounded visual corner to the card on the signup page */
+.login-card {
+    border-radius: 20px;
+    box-shadow: 0 8px 40px rgba(255, 255, 255, 0.76);
+}
+
+.login-card .card-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 2rem 2.25rem;
+    background: linear-gradient(180deg, rgba(0, 89, 255, 0.02), rgba(255, 0, 0, 0.96));
+    border-left: 1px solid rgba(15,23,42,0.02);
+}
+
+/* Premium variant for the card-inner - elevate the form visually */
+.card-inner.premium {
+    padding: 2.25rem 2.5rem;
+    background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255, 255, 255, 0.98));
+    border-left: 1px solid rgba(15,23,42,0.02);
+    border-radius: 0 20px 20px 0; /* match the card's radius */
+    box-shadow: 0 8px 40px rgba(4,12,32,0.04), inset 0 1px 0 rgba(77, 65, 65, 0.4);
+    transform-origin: right center;
+    
+}
+
+/* Stretch the inner form to fill and visually cover the parent's right
+   padding area. We add the extra right spacing to the form contents so the
+   form remains visually padded while the white card background extends to the
+   right edge of the blue gradient. */
+.login-card.split .card-inner.premium {
+     /* Make the inner content area extend further into the right-hand padding
+         area so the white form visually covers more of the art area and inputs
+         have extra horizontal room. We also slightly extend the left side so we
+         gain symmetric visual space. */
+     padding-left: 3rem;
+     padding-right: 10rem;
+     /* grow the visual width while keeping layout grounded — smaller negative
+         margins avoid layout breakage while providing more horizontal room */
+     width: calc(100% + 320px);
+     margin-right: -160px;
+     margin-left: -40px;
+     /* Keep the rounded corners consistent with the parent card */
+     border-radius: 0 12px 12px 0;
+}
+
+/* Stretch inputs inside the extended card-inner so form fields visually
+   reach into the area we've extended into with negative margin. This scope
+   only applies when the split layout is used. */
+.login-card.split .card-inner.premium input[type="email"],
+.login-card.split .card-inner.premium input[type="text"],
+.login-card.split .card-inner.premium input[type="password"],
+.login-card.split .card-inner.premium textarea,
+.login-card.split .card-inner.premium select {
+    box-sizing: border-box; /* ensure padding isn't added to width */
+    width: 100%; /* keep inputs constrained to their grid column */
+    max-width: 100%;
+    display: block;
+}
+
+/* Also make primary CTAs/styled buttons inside the inner column stretch to
+   the right expanded area so the UI elements align visually. */
+.login-card.split .card-inner.premium .btn-primary,
+.login-card.split .card-inner.premium .btn-outline,
+.login-card.split .card-inner.premium .social-cta .btn {
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.card-inner.premium h1 { font-size: 1.6rem; letter-spacing: -0.6px; margin-bottom: 0.2rem; color: #07102a; }
+.card-inner.premium h1#loginHeading { line-height: 1.28; text-shadow: 0 1px 0 rgba(7,16,42,0.03); }
+.card-inner.premium h1#signupHeading { line-height: 1.28; text-shadow: 0 1px 0 rgba(7,16,42,0.03); }
+.card-inner.premium .form-help { color: rgba(107,114,128,0.8); }
+.card-inner.premium .form-group { margin-bottom: 0.8rem; }
+.card-inner.premium input[type="email"], .card-inner.premium input[type="text"] { background: #fff; border: 1px solid rgba(15,23,42,0.06); padding: 1rem 1.05rem; box-shadow: 0 6px 18px rgba(20,28,45,0.04);} 
+.card-inner.premium input[type="password"] { background: #fff; border: 1px solid rgba(15,23,42,0.06); padding: 0.8rem 1.05rem; box-shadow: 0 6px 18px rgba(20,28,45,0.04); }
+.card-inner.premium input[type="email"]::placeholder, .card-inner.premium input[type="password"]::placeholder, .card-inner.premium input[type="text"]::placeholder, .card-inner.premium input[type="tel"]::placeholder { color: rgba(120,120,130,0.45); }
+
+/* Make the phone placeholder slightly more neutral/grey for clarity */
+.card-inner.premium input#phone::placeholder,
+.card-inner.premium input[type="tel"]::placeholder {
+    color: rgba(107,114,128,0.55);
+}
+input::placeholder, input::-webkit-input-placeholder, input::-moz-placeholder, input:-ms-input-placeholder { color: rgba(120,120,130,0.45); }
+input:focus::placeholder { color: rgba(120,120,130,0.30); }
+.card-inner.premium input:focus { box-shadow: 0 8px 30px rgba(15,98,254,0.08); border-color: var(--accent); }
+.card-inner.premium input#email:focus { border-color: rgba(107,114,128,0.45); box-shadow: 0 6px 20px rgba(20,24,28,0.04); }
+.card-inner.premium input#password:focus { border-color: rgba(107,114,128,0.45); box-shadow: 0 6px 20px rgba(20,24,28,0.04); }
+.card-inner.premium .toggle-password { background: rgba(250,250,255,0.98); box-shadow: 0 4px 12px rgba(4,12,24,0.04); }
+.password-wrap { position: relative; }
+.password-wrap .toggle-password { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 36px; padding: 0; border-radius: 8px; border: 1px solid rgba(17,24,39,0.06); background: #ffffff; cursor: pointer; color: #000000; }
+.password-wrap .toggle-password:focus { box-shadow: 0 0 0 4px rgba(15,98,254,0.06); }
+.password-wrap .toggle-password[aria-pressed="true"] { color: #000000; background: #ffffff; }
+.toggle-password svg { display: inline-block; width: 18px; height: 18px; }
+.toggle-password .eye-open { display: inline-block; }
+.toggle-password .eye-closed { display: none; }
+.toggle-password[aria-pressed="true"] .eye-open { display: none; }
+.toggle-password[aria-pressed="true"] .eye-closed { display: inline-block; }
+.card-inner.premium .form-cta { margin-top: 0.9rem; }
+.card-inner.premium .btn-primary { padding: 1rem 1.25rem; font-size: 1rem; border-radius: 12px; }
+.card-inner.premium .btn-outline.google { background: #fff; border: 1px solid rgba(17,24,39,0.06); padding: 0.9rem; }
+.card-inner.premium .divider { margin: 1.25rem 0; }
+.card-inner.premium .divider span { padding: 0.2rem 0.75rem; border-radius: 16px; background: rgba(250,250,250,0.9); border: 1px solid rgba(239,239,241,0.4); color: var(--muted); }
+.card-inner.premium .auth-extra { margin-top: 1rem; text-align: center; }
+.card-inner.premium .auth-extra p.muted.small { letter-spacing: normal; text-transform: none; font-family: 'Roboto', Arial, sans-serif; font-weight: 400; margin-right: 12px; }
+.card-inner.premium .auth-extra a { color: var(--accent); }
+@media (max-width: 820px) { .card-inner.premium { padding: 1.25rem 1.25rem; border-radius: 12px; box-shadow: 0 6px 18px rgba(4,12,32,0.04); } .card-inner.premium h1 { font-size: 1.25rem; } .card-inner.premium input[type="email"], .card-inner.premium input[type="text"] { padding: 0.85rem 0.9rem; } .card-inner.premium input[type="password"] { padding: 0.7rem 0.9rem; } .card-inner.premium .btn-primary { padding: 0.85rem 1rem; } .card-inner.premium .divider { margin: 0.8rem 0; } .card-inner.premium input[type="email"], .card-inner.premium input[type="text"], .card-inner.premium input[type="password"], .card-inner.premium textarea, .card-inner.premium select { width: 100%; box-sizing: border-box; } }
+@media (max-width: 820px) {
+    /* Revoke the extra right padding on smaller screens to prevent horizontal
+       overflow and maintain expected responsive layout */
+    .login-card.split .card-inner.premium {
+        padding-right: 1.25rem;
+        padding-left: 1.25rem;
+        width: auto; /* restore natural width for small screens */
+        margin-right: 0; /* remove negative margin used to extend on wide screens */
+    }
+    /* Make sure inputs also scale back to 100% for small devices */
+    .login-card.split .card-inner.premium input[type="email"],
+    .login-card.split .card-inner.premium input[type="text"],
+    .login-card.split .card-inner.premium input[type="password"],
+    .login-card.split .card-inner.premium textarea,
+    .login-card.split .card-inner.premium select {
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .login-card.split .card-inner.premium .btn-primary,
+    .login-card.split .card-inner.premium .btn-outline,
+    .login-card.split .card-inner.premium .social-cta .btn {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+.card-art { min-height: 260px; background-image: url('../images/logo.jpg'); background-size: contain; background-repeat: no-repeat; background-position: center; display: flex; align-items: center; justify-content: center; position: relative; background-color: rgba(0, 0, 0, 0.98); left: -28px;border-top-left-radius: 20px;border-bottom-left-radius: 20px; }
+main.container.login-page { font-family: 'Roboto', Arial, sans-serif; }
+main.container.login-page input, main.container.login-page textarea, main.container.login-page select, main.container.login-page button { font-family: 'Roboto', Arial, sans-serif; }
+
+/* Center the main container on larger screens (both horizontally and vertically)
+   leaving room for the header. Adjust `140px` if your header is taller/shorter. */
+@media (min-width: 820px) {
+    main.container.login-page {
+        display: flex;
+        align-items: center; /* vertical center */
+        justify-content: center; /* horizontal center */
+        min-height: calc(100vh - 140px); /* leave space for header */
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+        box-sizing: border-box;
+    }
+    /* Constrain the card width and center it horizontally */
+    .login-card {
+        margin-right: 90px;/* center horizontally */
+        width: 100%;
+        max-width: 1200px; /* limit the card width on large screens */
+        box-sizing: border-box;
+        
+    }
+}
+.card-art { transition: background-color 250ms ease; }
+.card-art::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(15,98,254,0.06), rgba(255,255,255,0.04)); }
+.login-card h1 { margin: 0; font-size: 1.35rem; font-weight: 700; color: var(--text); }
+.login-card .muted { color: var(--muted); font-size: 0.92rem; }
+.form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+.card-inner.premium label, label { font-weight: 600; font-size: 0.9rem; }
+.card-inner.premium label[for=\"email\"], .card-inner.premium label[for=\"password\"] { font-weight: 400; font-family: 'Roboto', Arial, sans-serif; }
+input[type="email"], input[type="password"], input[type="text"], input[type="tel"], textarea, select {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border: 1px solid rgba(15,23,42,0.06); /* match password base border */
+    background: #fff; /* match password background */
+    border-radius: 8px;
+    font-size: 0.95rem;
+    color: var(--text);
+    box-shadow: 0 6px 18px rgba(20,28,45,0.04); /* match password box-shadow */
+    transition: border-color 160ms ease, box-shadow 160ms ease, transform 120ms ease;
+}
+
+/* Make all inputs emulate the password field focus / pressed styles */
+.card-inner.premium input[type="email"]:focus,
+.card-inner.premium input[type="password"]:focus,
+.card-inner.premium input[type="text"]:focus,
+.card-inner.premium input[type="tel"]:focus,
+.card-inner.premium textarea:focus,
+.card-inner.premium select:focus,
+.card-inner.premium input[type="email"]:active,
+.card-inner.premium input[type="password"]:active,
+.card-inner.premium input[type="text"]:active,
+.card-inner.premium input[type="tel"]:active,
+.card-inner.premium textarea:active,
+.card-inner.premium select:active,
+.card-inner.premium input[type="email"]:focus-visible,
+.card-inner.premium input[type="password"]:focus-visible,
+.card-inner.premium input[type="text"]:focus-visible,
+.card-inner.premium input[type="tel"]:focus-visible,
+.card-inner.premium textarea:focus-visible,
+.card-inner.premium select:focus-visible {
+    border-color: rgba(107,114,128,0.45); /* password-like border on focus/press */
+    /* subtle grey outer shadow to emphasize active/focused field */
+    box-shadow: 0 8px 24px rgba(130, 133, 136, 0.185);
+    outline: none;
+}
+.card-inner.premium input:-webkit-autofill, .card-inner.premium input:-webkit-autofill:focus, .card-inner.premium input:-webkit-autofill:hover { -webkit-box-shadow: 0 0 0px 1000px #fff inset !important; box-shadow: 0 0 0px 1000px #fff inset !important; -webkit-text-fill-color: var(--text) !important; }
+input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 4px rgba(15,98,254,0.06); }
+input[aria-invalid=\"true\"] { border-color: var(--danger); box-shadow: 0 0 0 4px rgba(239,68,68,0.06); }
+.form-help { font-size: 0.8rem; color: var(--muted); opacity: 0; height: 1.2rem; overflow: hidden; letter-spacing: 2px; transition: opacity 180ms ease; }
+.form-help.hidden { display:none !important; opacity:0 !important; height:0 !important; overflow:hidden !important; }
+.error-msg { color: var(--danger); font-size: 0.82rem; min-height: 1.2rem; }
+.error-msg { transition: all 250ms ease; opacity: 1; }
+.error-msg:empty { opacity: 0; height: 0; min-height: 0; }
+.password-wrap { display: flex; align-items: center; gap: 0.5rem; }
+
+/* Row layout helpers to make the signup form more compact */
+.form-row { display: grid; grid-template-columns: 1fr; gap: 0.85rem; margin-bottom: 0.6rem; }
+.form-row.three { grid-template-columns: repeat(3, minmax(220px, 1fr)); align-items: start; column-gap: 1rem; }
+.form-row.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+/* Ensure 2-column form rows have a consistent horizontal gap so fields
+    don't touch each other when the form is extended */
+.form-row.two { column-gap: 1rem; }
+
+/* Make the Phone column slightly wider in the first 3-column row (Full name, Email, Phone)
+   so the phone input doesn't get truncated. This targets the first .form-row.three only. */
+.form-row.three:first-of-type {
+    /* Give the Full name and Email columns more space while ensuring
+       minimum widths to avoid input truncation/overlap. Increase the phone
+       column to a larger min width (320px) so it's not squashed on mid-width
+       screens and add a little right padding to the group's container. */
+    grid-template-columns: minmax(300px, 2.4fr) minmax(300px, 2.4fr) minmax(320px, 1fr);
+}
+
+/* Ensure the phone field remains full width of its grid column and doesn't overflow */
+.form-row.three:first-of-type > .form-group:nth-child(3) input[type="tel"],
+.form-row.three:first-of-type > .form-group:nth-child(3) textarea,
+.form-row.three:first-of-type > .form-group:nth-child(3) select {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid rgba(107,114,128,0.45); /* phone input border: grey */
+    padding-left: 14px;
+}
+
+.form-row.three:first-of-type > .form-group:nth-child(3) {
+    min-width: 320px; /* ensure the phone container doesn't become too small */
+    padding-right: 3rem; /* ensure phone column has extra room on the right */
+    box-sizing: border-box; /* ensure padding applied to width doesn't increase size */
+}
+
+/* Explicit width control for the Full name input so it stays visually
+   consistent on large screens while remaining responsive. */
+.form-row.three:first-of-type > .form-group:first-child input#fullName {
+    width: 100%;
+    max-width: 580px; /* cap the input so it doesn't become too wide on very large displays */
+    box-sizing: border-box;
+}
+
+@media (max-width: 820px) {
+    /* On small screens, keep single-column behavior to prevent cramped inputs */
+    .form-row.three:first-of-type {
+        grid-template-columns: 1fr;
+    }
+    .form-row.three:first-of-type > .form-group:nth-child(3) {
+        min-width: auto;
+    }
+}
+
+/* Make labels and inputs align horizontally and consistently */
+.form-row .form-group { display: flex; flex-direction: column; align-items: stretch; }
+.form-row .form-group label { display: block; margin-bottom: 0.35rem; margin-top: 0; }
+/* Prevent labels from wrapping on larger screens so they stay on single line,
+   but allow them to be clipped with ellipsis if they're very long */
+.form-row .form-group label { white-space: normal; overflow: visible; text-overflow: unset; }
+.form-row .form-group input { width: 100%; }
+
+/* Make the password inputs and toggles consistent height */
+.form-row .password-wrap { align-items: center; }
+.form-row .toggle-password { height: 38px; }
+/* keep input heights consistent in rows to make everything line up horizontally */
+.form-row .form-group input, .form-row .form-group textarea, .form-row .form-group select {
+    min-height: 44px;
+}
+.form-row .form-group label { line-height: 1.2; min-height: 1.3rem; }
+/* prevent grid children from overflowing when there's long content */
+.form-row > .form-group { min-width: 0; }
+
+/* -- New helpers: keep Full name (first+last), Email, Phone on one row -- */
+/* Wrap first and last name inputs inside a `.name-pair` container in the HTML. */
+.form-group .name-pair { display: flex; gap: 0.6rem; }
+.form-group .name-pair input { flex: 1 1 0; min-width: 0; }
+
+/* Slightly widen the first column (name) so first/last feel balanced. */
+.form-row.three.name-first { grid-template-columns: 1.4fr 1fr 1fr; column-gap: 1rem; }
+
+/* Ensure labels align consistently above each input column and don't push
+   the inputs out of line. On narrow screens we'll fall back to stacked layout. */
+@media (max-width: 820px) {
+    .form-row.three.name-first { grid-template-columns: 1fr; }
+    .form-group .name-pair { flex-direction: column; gap: 0.45rem; }
+}
+
+@media (max-width: 820px) {
+    .form-row.three, .form-row.two { grid-template-columns: 1fr; }
+    /* Allow labels to wrap on small screens for better responsiveness */
+    .form-row .form-group label { white-space: normal; }
+}
+
+/* Increase the horizontal spread of the form on large displays */
+@media (min-width: 1200px) {
+    .login-card { max-width: 1400px; }
+    .login-card.split { grid-template-columns: 1fr minmax(440px, 68%); }
+    .form-row.three { grid-template-columns: repeat(3, minmax(220px, 1fr)); column-gap: 1.25rem; }
+    /* Keep the first three-column row slightly wider for the Email field on large screens */
+    .form-row.three:first-of-type { grid-template-columns: 1.4fr 1.4fr 1fr; }
+}
+.form-group:focus-within .form-help { opacity: 1; }
+.form-group.invalid .form-help { opacity: 1; color: var(--danger); }
+.form-group.password-group.invalid .form-help { color: var(--danger); font-weight: 700; }
+.password-wrap input { flex: 1 1 auto; padding-right: 3.75rem; }
+.toggle-password { border: 1px solid rgba(17,24,39,0.06); background: rgba(255,255,255,0.98); padding: 0.5rem 0.6rem; border-radius: 8px; font-size: 0.85rem; color: var(--accent); cursor: pointer; }
+.toggle-password:focus { outline: none; box-shadow: 0 0 0 4px rgba(15,98,254,0.06); }
+.logo img { display:block; width:100%; height:auto; max-width:140px; }
+.auth-extra { margin-top: 0.8rem; }
+.auth-extra a { color: var(--accent); font-weight: 700; text-decoration: none; }
+.auth-extra a:hover { text-decoration: underline; }
+#emailHelp, #passwordHelp, #confirmPasswordHelp, #fullNameHelp, #phoneHelp, #addressHelp { letter-spacing: normal; text-transform: none; font-family: 'Roboto', Arial, sans-serif; font-weight: 400; font-size: 0.72rem; line-height: 1.2; }
+input[type=\"email\"], input[type=\"password\"], input[type=\"text\"], .toggle-password, .btn-primary, .btn-outline { transition: all 180ms cubic-bezier(.2,.8,.2,1); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(15,98,254,0.12); }
+.btn-primary:active { transform: translateY(0); }
+.btn-outline:hover { background: rgba(15,98,254,0.04); border-color: rgba(15,98,254,0.14); }
+.btn-outline:active { transform: translateY(0); }
+.btn-outline.google { background: white; border-color: rgba(17,24,39,0.06); }
+.btn-outline.google:hover { transform: translateY(-2px); }
+.btn-outline.google svg { margin-right: 0.3rem; }
+.btn-outline.google.active { transform: translateY(-1px) scale(.995); box-shadow: 0 6px 18px rgba(17,24,39,0.06); }
+.form-actions { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+.remember input { margin-right: 0.5rem; font-size: 10px; }
+.card-inner.premium .form-actions .remember { display: inline-flex; align-items: center; gap: 0.6rem; font-size: 0.85rem; white-space: nowrap; text-transform: none; letter-spacing: normal; }
+.card-inner.premium .form-actions .remember { font-weight: 400; font-family: 'Roboto', Arial, sans-serif; font-size: 14px; }
+.card-inner.premium .form-actions a.link.muted.small { font-size: 0.85rem; white-space: nowrap; text-transform: none; letter-spacing: normal; }
+.form-cta { margin-top: 0.6rem; }
+.form-cta .btn-primary, .social-cta .btn { width: 100%; display: block; }
+.form-actions .remember { display: flex; align-items: center; gap: 0.45rem; }
+.form-actions a.link { margin-left: auto; }
+.form-group label { color: rgba(10,10,10,0.85); }
+.form-group .form-help { color: rgba(107,114,128,0.9); }
+.divider { position: relative; display: flex; align-items: center; }
+.divider::before, .divider::after { content: ''; height: 1px; background: rgba(17,24,39,0.04); flex: 1; }
+.divider::before { margin-right: 0.6rem; }
+.divider::after { margin-left: 0.6rem; }
+.divider { margin: 1rem 0; text-align: center; color: var(--muted); }
+.divider span { font-size: 0.85rem; background: transparent; padding: 0.125rem 0.6rem; }
+.social-cta .btn { width: 100%; }
+.btn-primary { display: inline-block; padding: 0.9rem 1.2rem; border-radius: 8px; border: none; background: linear-gradient(90deg, #1850a5, #4f58e0); color: white; font-weight: 700; cursor: pointer; }
+.btn-primary[disabled] { opacity: 0.9; cursor: wait; position: relative; }
+.btn-primary[disabled]::after { content: ''; position: absolute; right: 14px; top: 50%; transform: translateY(-50%); width: 12px; height: 12px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.9); border-right-color: transparent; animation: spin 0.9s linear infinite; }
+@keyframes spin { 0% { transform: rotate(0); } 100% { transform: rotate(360deg); } }
+.btn-outline { padding: 0.85rem 1rem; border-radius: 8px; border: 1px solid rgba(17,24,39,0.06); background: transparent; color: var(--muted); cursor: pointer; display: inline-flex; gap: 0.6rem; align-items: center; }
+.success-msg { background: #e6ffef; border: 1px solid #bbf7d0; color: #065f46; padding: 0.6rem 0.8rem; border-radius: 8px; font-weight: 600; margin-bottom: 0.8rem; }
+@media (max-width: 540px) { .login-card { margin: 2rem 1rem; padding: 0; border-radius: 12px; } .login-card.split { grid-template-columns: 1fr; } .login-card h1 { font-size: 1.1rem; } }
+@media (max-width: 420px) { .password-wrap .toggle-password { width: 34px; height: 30px; right: 10px; } .password-wrap input { padding-right: 3.5rem; } }
+@media (max-width: 820px) { .card-art { display: none; } .login-card { max-width: 520px; } .login-card .card-inner { background: rgba(255,255,255,0.98); border-left: none; } }
+@keyframes shake { 10%, 90% { transform: translate3d(-1px, 0, 0); } 20%, 80% { transform: translate3d(2px, 0, 0); } 30%, 50%, 70% { transform: translate3d(-4px, 0, 0); } 40%, 60% { transform: translate3d(4px, 0, 0); } }
+.login-card.shake { animation: shake 450ms ease-in-out; }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+.success-msg { animation: fadeInUp 320ms ease both; }
+.google svg { display: inline-block; vertical-align: middle; }
+.google span { display: inline-block; vertical-align: middle; }
+.card-inner .logo { display: block; margin-bottom: 0.5rem; max-width: 120px; }
+
+/* Disable text caret (I-beam) and text selection outside form controls; keep text cursor for inputs only */
+*:not(input):not(textarea):not(select):not(button):not(a):not([contenteditable="true"]) {
+    cursor: default !important;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
+}
+
+/* Keep text cursor and allow selection for form fields and editable elements */
+input, textarea, select, [contenteditable="true"] {
+    cursor: text !important;
+    -webkit-user-select: text !important;
+    -moz-user-select: text !important;
+    -ms-user-select: text !important;
+    user-select: text !important;
+}
+
+/* Preserve pointer cursor and basic selection for interactive controls like links and buttons */
+a, button, .btn, [role="button"], label[for] {
+    cursor: pointer !important;
+    -webkit-user-select: text !important;
+    user-select: text !important;
+}
+
+/* small helpers */
+
+/* Force all input fields to have border-radius: 2px */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+input[type="number"],
+input[type="search"],
+input[type="url"],
+input[type="date"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="week"],
+input[type="time"],
+input[type="color"] {
+    border-radius: 8px !important;
+}
+
+/* Reduce "Create account" button width on signup while keeping it centered */
+#signUpBtn {
+    width: 260px; /* desired fixed width */
+    max-width: 90%; /* responsive fallback for very small screens */
+    display: block; /* ensure margin auto centers the button */
+    margin: 0.6rem auto 0; /* center horizontally and keep top spacing */
+    /* Make the primary CTA green */
+    background: linear-gradient(90deg, #16a34a, #4ade80); /* green gradient */
+    color: #ffffff; /* ensure text is visible */
+    font-weight: 700;
+    border: none;
+    box-shadow: 0 8px 22px rgba(34,197,94,0.12);
+}
+
+/* Hover/active states for the signup CTA */
+#signUpBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(34,197,94,0.14);
+}
+#signUpBtn:active { transform: translateY(0); }
+
+/* Ensure the phone input uses a grey border and grey focus shadow (override blue focus) */
+.card-inner.premium input#phone,
+.card-inner.premium input[type="tel"] {
+    border: 1px solid rgba(208, 211, 218, 0.45);
+}
+.card-inner.premium input#phone:focus,
+.card-inner.premium input#phone:active,
+.card-inner.premium input#phone:focus-visible,
+.card-inner.premium input[type="tel"]:focus,
+.card-inner.premium input[type="tel"]:active,
+.card-inner.premium input[type="tel"]:focus-visible {
+    border-color: rgba(107,114,128,0.45);
+    box-shadow: 0 8px 24px rgba(130, 133, 136, 0.185);
+    outline: none;
+}
+
+/* Narrow the Google sign-up button on wider screens; keep full width on small devices */
+.card-inner.premium .social-cta .btn-outline.google {
+    width: auto; /* don't force full width */
+    max-width: 360px; /* reasonable button width */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 0.8rem 1rem;
+}
+
+@media (max-width: 820px) {
+    .card-inner.premium .social-cta .btn-outline.google {
+        width: 100%;
+        max-width: none;
+    }
+}
+
+/* Center the social CTA area so inline buttons (like Google) appear centered */
+.card-inner.premium .social-cta {
+    text-align: center;
+}
+
+/* Page transition class used when navigating away from the signup page */
+html.page-transition, body.page-transition {
+    transition: opacity 260ms ease-in-out, transform 260ms cubic-bezier(.2,.8,.2,1);
+    opacity: 0.04;
+    transform: translateY(-6px);
+    pointer-events: none;
+}

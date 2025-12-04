@@ -1,0 +1,1521 @@
+/* Reset-ish */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html,body { height: 100%; }
+/* Hide vertical scrollbar visually while keeping scroll behavior */
+html{ -ms-overflow-style: none; /* IE and Edge */ scrollbar-width: none; /* Firefox */ }
+body { font-family: 'Inconsolata', 'Montserrat', sans-serif; color: #000000; background:#ffffff; overflow-x:hidden; overflow-y:auto; text-transform: uppercase; letter-spacing: 1.8px; font-weight: 550; }
+/* WebKit browsers: hide the scrollbar while keeping scrolling enabled */
+body::-webkit-scrollbar{ width: 0; height: 0; background: transparent; }
+
+/* Keep form controls readable and usable (no forced uppercase or large letter-spacing) */
+input, textarea, select, button { text-transform: none; letter-spacing: normal; font-family: 'Montserrat', sans-serif; font-weight: 400; }
+
+/* Keep logo image unaffected */
+.brand .logo img{ width:120px; height:100%; object-fit:contain; }
+
+/* CSS variables to tune hero animation and effects */
+:root{
+  --hero-duration: 36s;
+  --hero-easing: cubic-bezier(.22,.9,.28,.98);
+  --hero-small: 15vw;
+  --hero-medium: 45vw;
+  /* default offset for the right hero block; tweak to move the slider further right */
+  --hero-right-offset: 24px;
+  /* larger offset for premium wide hero layout */
+  --hero-right-offset-large: 48px;
+  --hero-overlay: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.08));
+  --topbar-hover-bg: rgba(255,255,255,0.06);
+  --card-bg: #ffffff;
+  --accent-yellow: #ffd54a;
+  /* Flying animation defaults - tune to match shop page smoothness */
+  --fly-duration: .92s;
+  --fly-easing: cubic-bezier(.22,.8,.28,1);
+  --shop-bg: #e9e7e7de;
+  --topbar-height: 86px; /* fallback default; will be set via JS at runtime */
+  /* Mobile menu icon sizing variables */
+  --site-menu-icon-size: 20px; /* default hamburger/close icon size */
+  --site-mobile-close-size: 24px; /* larger close icon inside off-canvas menu */
+  --site-hamburger-button-size: 44px; /* touch target size for hamburger/close buttons */
+}
+/* Apply the same flying animation defaults for index pages (ensure parity with shop) */
+.index-page{ --fly-duration: .92s; --fly-easing: cubic-bezier(.22,.8,.28,1); }
+
+/* Topbar - modern black & white theme */
+.topbar { background: #000; border-bottom: 1px solid rgba(255,255,255,0.06); color: #fff; position:fixed; top:0; left:0; right:0; width:100%; z-index:9999; }
+.topbar-inner { display:flex; justify-content:space-between; align-items:center; padding:14px 28px; }
+/* Ensure the topbar inner has a lower stacking context than the nav pseudo overlay */
+.topbar-inner{ position: relative; z-index: 1; }
+.brand .logo {
+  height:54px; /* keep friendly topbar height */
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background:transparent; /* let the logo image define its own background */
+  color:inherit;
+  border-radius:4px; /* subtle rectangle rounding, change to 0 if you want no rounding */
+  font-weight:inherit;
+  font-size:inherit;
+  letter-spacing:inherit;
+  border:0;
+  box-shadow:none; /* remove circular shadow unless desired */
+  padding:0; /* remove extra padding since logo image will size itself */
+}
+/* If the .logo contains an img, ensure it fits the circular badge */
+.brand .logo img{
+  height:100%;
+  width:120px; /* keep aspect ratio */
+  object-fit:contain; /* show full image within the height */
+  display:block;
+  border-radius:0; /* avoid inheriting circular rounding */
+}
+
+/* Logo interaction: pointer cursor, remove text caret, and small shake animation */
+.brand .logo{
+  cursor: pointer; /* clearly indicate clickable */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none; /* prevent text selection / caret from appearing */
+  outline: none; /* remove focus outline visual (we'll still blur after click in JS) */
+}
+/* Small menu next to the brand logo (Shop | Men | Women | Login) */
+.brand {
+  display:flex;
+  align-items:center;
+  gap:12px; /* slightly tighter space between logo and links */
+}
+.brand-links{ display:flex; gap:10px; align-items:center; margin-left:0; -webkit-user-select:none; -moz-user-select:none; user-select:none; }
+.brand-links .small-link{
+  color: #ffffff; /* topbar is black initially */
+  text-decoration:none;
+  font-size:11px; /* reduced text size for a tighter look */
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  opacity:6;
+  padding:3px 5px; /* slightly smaller padding */
+  border-radius:4px;
+  transition: color .18s ease, opacity .18s ease, transform .2s cubic-bezier(.2,.9,.3,1);
+  will-change: transform, opacity;
+  -webkit-user-select: none; -moz-user-select: none; user-select: none; /* prevent selection */
+  caret-color: transparent; /* hide caret if any */
+  -webkit-touch-callout: none;
+  cursor: pointer;
+}
+.brand-links .small-link:hover, .brand-links .small-link:focus{ opacity:1; transform: translateY(-2px); color: var(--accent-yellow); }
+/* Only individual small-links should change color on hover — container hover effect removed */
+.brand-links .small-link:focus-visible{ outline: 3px solid rgba(255, 213, 74, 0.14); outline-offset: 3px; }
+/* Focus outline for accessibility (similar to .top-actions small links) */
+.brand-links .small-link:focus{ outline:3px solid rgba(255,255,255,0.12); outline-offset:3px; }
+/* Add separators using CSS pseudo elements like the screenshot (a simple pipe) */
+.brand-links .small-link:not(:last-child)::after{
+  content: ' |';
+  margin-left:8px;
+  color: rgba(255,255,255,0.6);
+  opacity:1;
+  transition: color .18s ease, opacity .18s ease, transform .18s ease;
+}
+
+/* For small screens: hide the brand-links to keep topbar tidy */
+@media (max-width: 640px){
+  .brand-links{ display:none; }
+}
+.page-content { /* helper class used for body padding fallback */
+  padding-top: var(--topbar-height);
+}
+.brand .logo:focus{ outline: none; }
+
+@keyframes logo-shake {
+  0% { transform: translateX(0); }
+  20% { transform: translateX(-4px) rotate(-1deg); }
+  40% { transform: translateX(4px) rotate(1deg); }
+  60% { transform: translateX(-3px) rotate(-0.5deg); }
+  80% { transform: translateX(2px) rotate(0.5deg); }
+  100% { transform: translateX(0); }
+}
+.brand .logo.shake{
+  animation: logo-shake 420ms ease-in-out;
+}
+/* Subtle hover-triggered shake for quick playful feedback */
+.brand .logo:hover{
+  animation: logo-shake 360ms ease-in-out;
+}
+/* Index page: hide caret by default (except search) */
+.index-page input[type="text"],
+.index-page input[type="email"],
+.index-page input[type="tel"],
+.index-page textarea,
+.index-page [contenteditable],
+.index-page input[type="text"]:focus,
+.index-page input[type="email"]:focus,
+.index-page input[type="tel"]:focus,
+.index-page textarea:focus,
+.index-page [contenteditable]:focus {
+  caret-color: transparent !important;
+}
+
+/* Allow caret for header search on home page */
+#search,
+#search:focus,
+#search:focus-visible {
+  caret-color: currentColor !important;
+}
+
+/* Hide caret for non-editable elements inside the index page as a fallback */
+.index-page *:not(input):not(textarea):not([contenteditable]){
+  caret-color: transparent !important;
+}
+
+/* Explicitly hide caret for anchors and headings in the index (header / nav / mega menu) */
+.index-page a, .index-page .main-nav a, .index-page .brand-links .small-link, .index-page .collections-link,
+.index-page h1, .index-page h2, .index-page h3, .index-page h4, .index-page .mega-col h4 {
+  caret-color: transparent !important;
+}
+
+.index-page a:focus, .index-page .main-nav a:focus, .index-page .brand-links .small-link:focus, .index-page .collections-link:focus,
+.index-page h1:focus, .index-page h2:focus, .index-page h3:focus, .index-page h4:focus, .index-page .mega-col h4:focus,
+.index-page a:focus-visible, .index-page .main-nav a:focus-visible, .index-page .brand-links .small-link:focus-visible, .index-page .collections-link:focus-visible,
+.index-page h1:focus-visible, .index-page h2:focus-visible, .index-page h3:focus-visible, .index-page h4:focus-visible, .index-page .mega-col h4:focus-visible{
+  caret-color: transparent !important;
+}
+
+/* Shop page: same caret behavior as index/checkout — hide by default, allow for header search */
+.shop-page input[type="text"],
+.shop-page input[type="email"],
+.shop-page input[type="tel"],
+.shop-page textarea,
+.shop-page [contenteditable],
+.shop-page input[type="text"]:focus,
+.shop-page input[type="email"]:focus,
+.shop-page input[type="tel"]:focus,
+.shop-page textarea:focus,
+.shop-page [contenteditable]:focus {
+  caret-color: transparent !important;
+}
+
+#search,
+#search:focus,
+#search:focus-visible {
+  caret-color: currentColor !important;
+}
+
+.shop-page *:not(input):not(textarea):not([contenteditable]){
+  caret-color: transparent !important;
+}
+
+/* Explicitly hide caret for anchors and headings in the shop (header / nav / mega menu) */
+.shop-page a, .shop-page .main-nav a, .shop-page .brand-links .small-link, .shop-page .collections-link,
+.shop-page h1, .shop-page h2, .shop-page h3, .shop-page h4, .shop-page .mega-col h4 {
+  caret-color: transparent !important;
+}
+
+.shop-page a:focus, .shop-page .main-nav a:focus, .shop-page .brand-links .small-link:focus, .shop-page .collections-link:focus,
+.shop-page h1:focus, .shop-page h2:focus, .shop-page h3:focus, .shop-page h4:focus, .shop-page .mega-col h4:focus,
+.shop-page a:focus-visible, .shop-page .main-nav a:focus-visible, .shop-page .brand-links .small-link:focus-visible, .shop-page .collections-link:focus-visible,
+.shop-page h1:focus-visible, .shop-page h2:focus-visible, .shop-page h3:focus-visible, .shop-page h4:focus-visible, .shop-page .mega-col h4:focus-visible{
+  caret-color: transparent !important;
+}
+
+/* FAQ page: same caret behavior as index/shop — hide by default, allow for header search */
+.faq-page input[type="text"],
+.faq-page input[type="email"],
+.faq-page input[type="tel"],
+.faq-page textarea,
+.faq-page [contenteditable],
+.faq-page input[type="text"]:focus,
+.faq-page input[type="email"]:focus,
+.faq-page input[type="tel"]:focus,
+.faq-page textarea:focus,
+.faq-page [contenteditable]:focus {
+  caret-color: transparent !important;
+}
+
+#search,
+#search:focus,
+#search:focus-visible {
+  caret-color: currentColor !important;
+}
+
+.faq-page *:not(input):not(textarea):not([contenteditable]){
+  caret-color: transparent !important;
+}
+
+/* Explicitly hide caret for anchors and headings in the FAQ page (header / nav / content) */
+.faq-page a, .faq-page .main-nav a, .faq-page .brand-links .small-link, .faq-page .collections-link,
+.faq-page h1, .faq-page h2, .faq-page h3, .faq-page h4, .faq-page .mega-col h4 {
+  caret-color: transparent !important;
+}
+
+.faq-page a:focus, .faq-page .main-nav a:focus, .faq-page .brand-links .small-link:focus, .faq-page .collections-link:focus,
+.faq-page h1:focus, .faq-page h2:focus, .faq-page h3:focus, .faq-page h4:focus, .faq-page .mega-col h4:focus,
+.faq-page a:focus-visible, .faq-page .main-nav a:focus-visible, .faq-page .brand-links .small-link:focus-visible, .faq-page .collections-link:focus-visible,
+.faq-page h1:focus-visible, .faq-page h2:focus-visible, .faq-page h3:focus-visible, .faq-page h4:focus-visible, .faq-page .mega-col h4:focus-visible{
+  caret-color: transparent !important;
+}
+
+/* Respect reduced motion: disable logo animations if user prefers reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .brand .logo.shake,
+  .brand .logo:hover { animation: none !important; }
+  .brand-links .small-link,
+  .brand-links .small-link::after { transition: none !important; transform: none !important; }
+}
+.top-actions { display:flex; gap:14px; align-items:center; }
+.top-actions .small-link { color:#fff; text-decoration:none; font-size:14px; opacity:.9; padding:6px 8px; transition:opacity .18s ease, transform .12s ease; position:relative; }
+.top-actions .small-link::after{ content:''; position:absolute; left:50%; transform:translateX(-50%) scaleX(0); bottom:2px; width:60%; height:2px; background:rgba(255,255,255,0.95); transition: transform .18s ease; border-radius:2px; }
+.top-actions .small-link:hover::after, .top-actions .small-link:focus::after{ transform: translateX(-50%) scaleX(1); }
+.top-actions .small-link:hover, .top-actions .small-link:focus { opacity:1; color:#fff; transform:translateY(-1px); }
+.cart { font-size:13px; color:#fff; }
+
+/* Cart notification button */
+.top-actions .notif-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  text-decoration:none;
+  color:#fff;
+  font-size:13px;
+  margin-right: 30px;
+  padding:6px 8px;
+  transition: transform .14s ease, box-shadow .14s ease, background .12s ease;
+  cursor: pointer;
+}
+.top-actions .notif-btn img{ display:block; filter: invert(1) brightness(2); }
+.top-actions .notif-btn:hover, .top-actions .notif-btn:focus{ transform:translateY(-2px); box-shadow:0 6px 16px rgba(0,0,0,0.22); background: var(--topbar-hover-bg); border-radius:6px; }
+.top-actions .notif-btn:hover img, .top-actions .notif-btn:focus img{ filter: invert(1) brightness(2.4); }
+.notif-badge{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:18px;
+  height:18px;
+  padding:0 6px;
+  border-radius:12px;
+  background:#ff4d4f; /* accent color that pops on black */
+  color:#fff;
+  font-size:12px;
+  line-height:1;
+}
+.search-wrap{
+  display:flex;
+  align-items:center;
+  border:1px solid #a09898; /* light neutral border for the grey well */
+  background: #e2dfdf; /* light grey search well */
+  border-radius:28px; /* consistent rounded corners */
+  padding:4px 8px;
+  height:36px;
+  margin-right:12px; /* space between search and cart */
+}
+.search-wrap input{
+  width:320px;
+  max-width:380px;
+  padding:6px 8px;
+  background: transparent; /* search input wrapper - keep minimal */
+  border:0;
+  color:#111; /* dark text to match grey background */
+  outline:none;
+  height:28px;
+  font-size:14px;
+  box-sizing:border-box;
+}
+
+/* Header / nav tweaks for smaller devices to avoid overflow and keep nav usable */
+@media (max-width: 640px){
+  .topbar-inner{ padding:10px 12px; gap:8px; }
+  .brand .logo img{ width:96px; }
+  .search-wrap input{ width:130px; max-width:unset; }
+  .search-wrap{ padding:4px 8px; margin-right:6px; }
+  .top-actions .notif-btn{ margin-right:6px; padding:6px 8px; }
+  .main-nav{ padding:8px 0; }
+  .main-nav ul{ gap:10px; padding:6px 8px; flex-wrap:nowrap; justify-content:flex-start; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  .main-nav ul li{ flex: 0 0 auto; }
+  .main-nav a{ font-size:11px; padding:6px 6px; }
+  .main-nav .nav-indicator{ bottom:-6px; left:0; }
+}
+/* Prevent nav overflow and allow horizontal scrolling for slightly larger phones/tablets */
+@media (max-width: 900px){
+  .main-nav ul{ overflow-x:auto; -webkit-overflow-scrolling:touch; gap:14px; padding:6px 10px; justify-content:flex-start; }
+  .main-nav ul li{ flex:0 0 auto; }
+}
+
+/* Global slider rules accidentally nested earlier were removed from .search-wrap input. 
+   Ensure hero slider slides (img elements) occupy the full height and width of their flex container.
+   This explicitly sets width/height and ensures object-fit is applied so images fully cover their area. */
+.hero-right .slides .slide{
+  width:100%;
+  height:100%;
+  display:block; /* img slides are block-level to avoid inline baseline gaps */
+  object-fit:cover;
+}
+.search-wrap input::placeholder{ color: rgb(121, 118, 118); }
+.search-wrap:focus-within{ border-color: #bdbdbd; background: #b4acac; box-shadow: 0 6px 16px rgba(0,0,0,0.08); }
+
+.main-nav { /* replace the hard border with a subtle, blurred transition */
+  border-top: none; /* visual border is now provided by a blur overlay */
+  background: rgba(255,255,255,0.94);
+  box-shadow: 0 1px 0 rgba(0,0,0,0.04);
+  min-height:64px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  z-index: 2; /* build a new stacking context so our pseudo-element can overlay the topbar */
+  padding:25px 0;
+}
+
+/* Blurry blending overlay — sits above the topbar-inner border and provides a soft transition */
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .main-nav::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -12px; /* overlap into the topbar so the blur affects that area */
+    height: 20px; /* visual thickness of the blurred band */
+    pointer-events: none;
+    z-index: 3; /* above topbar-inner */
+    background: linear-gradient(180deg, rgba(0,0,0,0.28) 0%, rgba(0,0,0,0.06) 20%, rgba(255,255,255,0.08) 70%, rgba(255,255,255,0.94) 100%);
+    -webkit-backdrop-filter: blur(6px) saturate(110%);
+    backdrop-filter: blur(6px) saturate(110%);
+    transition: opacity .22s ease, transform .18s ease;
+    mix-blend-mode: normal;
+    opacity: 0.95; /* subtle effect */
+  }
+}
+/* Fallback for browsers without backdrop-filter: use a gentle gradient to approximate the blend */
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .main-nav::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -12px;
+    height: 20px;
+    pointer-events: none;
+    z-index: 3;
+    background: linear-gradient(180deg, rgba(0,0,0,0.12) 0%, rgba(0,0,0,0.04) 20%, rgba(255,255,255,0.06) 70%, rgba(255,255,255,0.94) 100%);
+    opacity: 0.92;
+    transition: opacity .22s ease;
+  }
+}
+
+/* Smaller screens: reduce overlap and height so it doesn't crowd the header */
+@media (max-width: 640px){
+  .main-nav::before{ top: -10px; height: 14px; left: -6px; right: -6px; }
+}
+.main-nav ul { display:flex; list-style:none; gap:36px; padding:0 10px; margin:0 auto; height:auto; align-items:center; justify-content:center; }
+/* Ensure list items are centered vertically */
+.main-nav li { display:flex; align-items:center; }
+.main-nav a { color:#111; text-decoration:none; font-size:12px; letter-spacing:3px; opacity:0.88; padding:6px 8px; line-height:1; transition:opacity .12s ease, color .12s ease, transform .12s cubic-bezier(.22,.9,.28,.98), background .12s ease, box-shadow .12s ease; font-weight:500; text-transform:uppercase; border-radius:6px; position:relative; display:inline-block; text-align:center; font-family: inherit; }
+
+
+/* Hide per-link pseudo-dot since we use a single moving indicator now */
+.main-nav a::after{ display:none !important; }
+
+/* Single moving dot indicator (created & positioned by JS) */
+.main-nav .nav-indicator{
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background: #111;
+  border-radius: 50%;
+  transform: translateX(-50%) translateY(6px) scale(.6);
+  opacity: 0;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.06);
+  transition: left 220ms cubic-bezier(.2,.9,.3,1), transform 220ms cubic-bezier(.2,.9,.3,1), opacity 180ms cubic-bezier(0,0,.2,1);
+  will-change: left, transform, opacity;
+  pointer-events: none;
+}
+
+/* Mega-menu dropdown under "Collections" in the main nav */
+.main-nav .has-mega { position: relative; }
+.main-nav .has-mega .collections-link { cursor: pointer; }
+.main-nav .mega-menu {  
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  opacity: 0;
+  pointer-events: none;
+  background: #ffffff;
+  color: #111;
+  border-radius: 10px;
+  box-shadow: 0 14px 34px rgba(0,0,0,0.12);
+  width: 920px;
+  max-width: 92vw;
+  padding: 18px 20px;
+  z-index: 100;
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+.main-nav .mega-menu .mega-columns { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; align-items:flex-start; }
+.main-nav .mega-menu .mega-col { min-width: 0; display: flex; flex-direction: column; gap:6px; align-items:flex-start; padding: 2px 6px; cursor: pointer; }
+.main-nav .mega-menu .mega-col:hover{ transform: translateY(-3px); }
+.main-nav .mega-menu .mega-col{ transition: transform 160ms cubic-bezier(.22,.9,.28,.98), box-shadow 160ms ease; }
+.main-nav .mega-menu .mega-col-head{ display:flex; align-items:center; gap:12px; margin-bottom:8px; }
+.main-nav .mega-menu .mega-col-head img.mega-col-logo{ width:56px; height:56px; border-radius:10px; object-fit:cover; display:inline-block; }
+.main-nav .mega-menu h4 { font-size: 0.82rem; font-weight:400; margin:0; color: rgba(0,0,0,0.9); letter-spacing: 1px; }
+.main-nav .mega-menu p, .main-nav .mega-menu a { font-size: 12px; line-height: 1.3; }
+.main-nav .mega-menu ul { list-style:none; margin:0; padding:0; }
+.main-nav .mega-menu a { display: block; padding: 6px 0; color: #111; text-decoration: none; font-size: 12px; opacity: 0.9; }
+.main-nav .mega-menu a:hover, .main-nav .mega-menu a:focus{ color: var(--accent); }
+.main-nav .has-mega:hover .mega-menu,
+.main-nav .has-mega:focus-within .mega-menu,
+.main-nav .has-mega.open .mega-menu { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
+
+@media (max-width: 820px){
+  /* On mobile, we hide the megamenu by default and allow JS to toggle the `.open` class */
+  .main-nav .mega-menu { position: static; transform: none; opacity: 1; pointer-events: auto; width: 100%; padding: 12px 0; box-shadow: none; background: transparent; display: none; }
+  .main-nav .has-mega.open .mega-menu{ display: block; }
+  .main-nav .mega-menu .mega-columns{ display: grid; grid-template-columns: 1fr; gap: 6px; }
+  .main-nav .mega-menu .mega-col { padding: 8px 16px; }
+}
+
+/* Tablet breakpoint: two columns for medium screens */
+@media (min-width: 820px) and (max-width: 1199px){
+  .main-nav .mega-menu { width: 760px; }
+  .main-nav .mega-menu .mega-columns { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+}
+
+/* Desktop: larger spacing */
+@media (min-width: 1200px){
+  .main-nav .mega-menu { width: 960px; padding: 22px 26px; }
+  .main-nav .mega-menu .mega-columns { grid-template-columns: repeat(3, 1fr); gap: 26px; }
+}
+
+/* When visible, the indicator sits centered (JS sets `left`) and scales into view */
+.main-nav.show-indicator .nav-indicator{ opacity:1; transform: translateX(-50%) translateY(0) scale(1); }
+
+/* Hide the moving indicator when a mega menu (Collections) is open to avoid
+  showing a steady marker under the Collections trigger. JS toggles the
+  `.mega-open` class on `.main-nav` when any megamenu opens. */
+.main-nav.mega-open .nav-indicator{ opacity:0 !important; transform: translateX(-50%) translateY(6px) scale(.6) !important; }
+
+/* diamond marker removed per request */
+/* previously used: .main-nav li:first-child a::before */
+
+/* Reduce motion preference: simple hover without transforms */
+@media (prefers-reduced-motion: reduce){
+  .main-nav a{ transition:none; transform:none; }
+  .main-nav a::after{ transition:none; transform:none; }
+}
+
+/* Keyboard focus styles for accessibility */
+.top-actions .small-link:focus, .top-actions .notif-btn:focus{ outline:3px solid rgba(255,255,255,0.08); outline-offset:3px; border-radius:4px; }
+.main-nav a:focus{ outline:3px solid rgba(0,0,0,0.08); outline-offset:3px; border-radius:6px; }
+
+/* Inconsolata visual style for the main nav */
+.inconsolata-nav{
+  font-family: "Inconsolata", monospace;
+  font-optical-sizing: auto;
+  font-weight: 700; /* choose weight matching the nav emphasis */
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
+.inconsolata-nav a{ font-family:inherit; font-weight:inherit; }
+
+/* Hero */
+.hero { background: #dedede; color:#111; padding:60px 0; position:relative; overflow:hidden; transform: translateZ(0); backface-visibility: hidden; z-index: 1; }
+/* Subtle, light overlay to keep contrast with copy while matching image greys */
+.hero::before{
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+  z-index: 0;
+}
+/* Play/pause state (class controlled by JS) */
+.hero.paused .hero-scroller{ animation-play-state: paused; }
+
+/* Hero controls (top-right) */
+.hero-controls{ position:absolute; top:12px; right:12px; z-index: 8; display:flex; gap:8px; }
+.hero-toggle{ display:inline-flex; align-items:center; justify-content:center; height:36px; padding:8px 12px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08); color:#fff; border-radius:6px; font-size:13px; cursor:pointer; }
+.hero-toggle:hover{ background: rgba(255,255,255,0.12); }
+.hero-toggle:focus{ outline: 2px solid rgba(255,255,255,0.12); outline-offset:2px; }
+
+/* Animation: Seamless horizontal loop — slide left, teleport to right, slide back */
+/* Hero scroller - duplicate inner content so background remains visible and prevents white gap */
+.hero-scroller{ display:flex; width:400vw; transform: translateZ(0); overflow: visible; }
+.hero-pane{ width:100vw; flex:0 0 auto; box-sizing:border-box; }
+/* Prevent interactions with duplicated (hidden) hero pane for accessibility */
+.hero-pane[aria-hidden="true"]{ pointer-events:none; user-select:none; }
+
+/* Disable slide/transition effects inside the cloned pane so it remains static when scroller moves */
+.hero-pane[aria-hidden="true"] .slides{ transition: none !important; transform: translateX(0) !important; }
+.hero-pane[aria-hidden="true"] .hero-left{ transition: none !important; transform:none !important; opacity:1 !important; }
+.hero-pane[aria-hidden="true"] .slider .dots{ display:none !important; }
+.hero-pane[aria-hidden="true"] .slider{ pointer-events:none; }
+
+/* Animate the scroller with pane-focused steps across 4 panes */
+@keyframes heroPanes {
+  0% { transform: translateX(0); }
+  20% { transform: translateX(0); }
+  25% { transform: translateX(-100vw); }
+  45% { transform: translateX(-100vw); }
+  50% { transform: translateX(-200vw); }
+  70% { transform: translateX(-200vw); }
+  75% { transform: translateX(-300vw); }
+  95% { transform: translateX(-300vw); }
+  100% { transform: translateX(0); }
+}
+
+.hero-scroller{ will-change: transform; animation: heroPanes var(--hero-duration) var(--hero-easing) infinite; }
+
+/* Respect reduced motion accessibility preference */
+@media (prefers-reduced-motion: reduce){
+  .hero-scroller{ animation: none !important; }
+  .hero-right .slide{ transition: none !important; transform: none !important; }
+}
+
+/* Enable animation only on wider screens to avoid layout issues on small/mobile devices */
+@media (max-width: 900px){
+  .hero-scroller{ animation: none !important; }
+  /* adjust slider sizes for smaller screens */
+  .hero-right .slider{ width: 320px; height: 320px; }
+  .hero-right .slide{ flex:0 0 78%; min-width:220px; }
+}
+
+/* Premium hero overrides */
+.hero.premium{ padding:84px 0 120px; background: linear-gradient(180deg, rgba(8,9,10,0.08), rgba(0,0,0,0.04)); }
+.hero.premium .container{ max-width:1280px; }
+.hero.premium .hero-left{ width:48%; padding-right:28px; position:relative; z-index:3; overflow:visible; }
+.hero.premium .hero-left .brand-title{
+  font-family: 'Montserrat', 'Inconsolata', sans-serif;
+  font-weight: 900;
+  font-size:72px;
+  letter-spacing:10px;
+  margin-bottom:8px;
+  color: #0b0b0b; /* dark heading on light overlay */
+  text-transform: uppercase;
+}
+.hero.premium .lead{
+  color: rgba(0,0,0,0.72);
+  margin-bottom:18px;
+  font-size:16px;
+  letter-spacing:1.6px;
+  text-transform: none; /* keep sentence case for the subcopy */
+}
+.hero.premium .cta{
+  display:inline-block;
+  padding:12px 20px;
+  border-radius:28px;
+  background: linear-gradient(90deg, #000000, #141414);
+  color:#ffffff;
+  box-shadow: 0 12px 36px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.03);
+  text-decoration:none;
+  font-weight:700;
+  letter-spacing:1px;
+  transition: transform .18s ease, box-shadow .18s ease, opacity .18s ease;
+}
+.hero.premium .cta:hover{ transform:translateY(-4px); box-shadow: 0 24px 48px rgba(0,0,0,0.22); }
+.hero.premium .hero-right{ width:52%; display:flex; justify-content:flex-end; transform: translateX(var(--hero-right-offset-large)); transition: transform 240ms cubic-bezier(.22,.9,.28,.98); }
+.hero.premium .slider{ width:540px; height:420px; border-radius:16px; overflow:hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.18); }
+.hero.premium .slides{ gap: 22px; padding:22px; }
+.hero.premium .slide{ border-radius:12px; /* Box shadow removed for a flatter, borderless look */ box-shadow: none !important; transform-origin:center center; transition: transform .32s cubic-bezier(.22,.9,.28,.98), box-shadow .32s ease; }
+.hero.premium .slide:hover{ transform: translateY(-10px) scale(1.06); box-shadow: none !important; }
+.hero.premium .slides .slide.is-active{ transform: translateY(-14px) scale(1.18); z-index: 50; box-shadow: 0 40px 100px rgba(0,0,0,0.28); }
+
+/* Manual hero navigation (bottom center) removed */
+
+/* Decorative image behind the left hero block with softened edges.
+   Technique: two pseudo-elements —
+   - ::before: larger blurred silhouette behind the main image
+   - ::after: sharp image with a radial mask that fades edges to transparent
+   This preserves accessibility (content remains separate) while blending edges. */
+.hero.premium .hero-left{ position: relative; }
+.hero.premium .hero-left::before{
+  content: "";
+  position: absolute;
+  top: 88%;
+  right: -40px; /* slightly further back so the blur spreads outside the main image */
+  left: auto !important;
+  transform: translateY(-50%) translateX(-120px) !important;
+  width: 600px; /* a bit larger so the blur softens beyond the foreground image */
+  height: 760px;
+  background-image: url('../images/model.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  filter: blur(8px) saturate(0.96); /* reduced blur for a subtler halo */
+  opacity: 0.44; /* slightly increased opacity to compensate */
+  border-radius: 20px;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.18);
+  z-index: 1;
+  pointer-events: none;
+}
+.hero.premium .hero-left::after{
+  content: "";
+  position: absolute;
+  top: 88%;
+  right: -10px !important; /* align visually with previous placement */
+  left: auto !important;
+  transform: translateY(-50%) translateX(-140px) !important;
+  width: 520px;
+  height: 640px;
+  background-image: url('../images/model.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  opacity: 0.98; /* keep the foreground image mostly opaque */
+  border-radius: 12px;
+  box-shadow: 0 28px 64px rgba(0,0,0,0.2);
+  z-index: 2; /* stay below the content children (which remain z-index:3) */
+  pointer-events: none;
+  -webkit-mask-image: radial-gradient(closest-side, black 62%, rgba(0,0,0,0.65) 76%, transparent 100%);
+  mask-image: radial-gradient(closest-side, black 62%, rgba(0,0,0,0.65) 76%, transparent 100%);
+}
+.hero.premium .hero-left *{ position: relative; z-index: 3; }
+
+@media (max-width:900px){
+  /* Hide the decorative background on smaller screens to avoid layout overlap */
+  .hero.premium .hero-left::before,
+  .hero.premium .hero-left::after{ display:none; }
+}
+
+/* Slightly larger decorative image on wide screens to add visual weight */
+@media (min-width: 1280px){
+  .hero.premium .hero-left::before{
+    top: 90%; /* slightly lower on very wide screens */
+    right: -20px !important;
+    left: auto !important;
+    transform: translateY(-50%) translateX(-160px) !important;
+    width: 840px;
+    height: 980px;
+    opacity: 0.36;
+  }
+  .hero.premium .hero-left::after{
+    top: 90%;
+    right: -10px !important;
+    left: 290px !important;
+    transform: translateY(-50%) translateX(-160px) !important;
+    width: 680px;
+    height: 860px;
+    opacity: 0.88;
+  }
+}
+
+/* Decorative background for right-side slider panes (copy of left styles but mirrored)
+   Each hero pane will get a matching decorative background using the same sizing and mask.
+  We'll add examples for hero-one..hero-five with unique images. */
+.hero.premium .hero-right{ position: relative; }
+.hero.premium .hero-right::before{
+  content: "";
+  position: absolute;
+  top: 88%;
+  left: -40px; /* mirror placement for right side */
+  transform: translateY(-50%) translateX(120px) !important;
+  width: 600px;
+  height: 760px;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  filter: blur(8px) saturate(0.96);
+  opacity: 0.44;
+  border-radius: 20px;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.18);
+  z-index: 1;
+  pointer-events: none;
+}
+.hero.premium .hero-right::after{
+  content: "";
+  position: absolute;
+  top: 88%;
+  left: -10px !important;
+  transform: translateY(-50%) translateX(140px) !important;
+  width: 520px;
+  height: 640px;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  opacity: 0.98;
+  border-radius: 12px;
+  box-shadow: 0 28px 64px rgba(0,0,0,0.2);
+  z-index: 2;
+  pointer-events: none;
+  -webkit-mask-image: radial-gradient(closest-side, black 62%, rgba(0,0,0,0.65) 76%, transparent 100%);
+  mask-image: radial-gradient(closest-side, black 62%, rgba(0,0,0,0.65) 76%, transparent 100%);
+}
+
+/* Hide on small screens similar to left decorations */
+@media (max-width:900px){
+  .hero.premium .hero-right::before,
+  .hero.premium .hero-right::after{ display:none; }
+}
+
+/* Specific background images for each hero pane (assign different images per pane) */
+
+.hero-pane.hero-two .hero-right::before, .hero-pane.hero-two .hero-right::after{
+  /* Swapped model image for a footwear image 'sho3.jpg' per request */
+  background-image: url('../images/new1.jpg');
+}
+/* Override the large left-pane decorative images for the second hero pane so the big model.jpg
+   is replaced with sho3.jpg as well. This ensures the 'big' model image behind the copy is
+   replaced and only sho3.jpg will be shown for hero-two. */
+.hero-pane.hero-two .hero-left::before, .hero-pane.hero-two .hero-left::after{
+  background-image: url('../images/capp.jpg');
+}
+.hero-pane.hero-three .hero-right::before, .hero-pane.hero-three .hero-right::after{
+  background-image: url('../images/model3.jpg');
+}
+/* Make hero-three right decorative images blend into background so sharp corners don't appear */
+.hero-pane.hero-three .hero-right::before{
+  /* soft halo behind the main content */
+  filter: blur(8px) saturate(0.96);
+  opacity: 0.44;
+  border-radius: 20px; /* match the generic right decoration */
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+.hero-pane.hero-three .hero-right::after{
+  /* sharp foreground image with a radial mask to fade edges to transparent */
+  border-radius: 12px;
+  opacity: 0.98;
+  -webkit-mask-image: radial-gradient(closest-side, black 62%, rgba(0,0,0,0.65) 76%, transparent 100%);
+  mask-image: radial-gradient(closest-side, black 62%, rgba(0,0,0,0.65) 76%, transparent 100%);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+/* Match hero-two: override the large left-pane decorative images for the third hero pane
+   so the big model.jpg behind the copy is replaced with capp.jpg as well. */
+.hero-pane.hero-three .hero-left::before, .hero-pane.hero-three .hero-left::after{
+  background-image: url('../images/hood.jpg');
+}
+/* Make hero-three left decorative images blend into background so sharp corners don't appear */
+.hero-pane.hero-three .hero-left::before{
+  filter: blur(8px) saturate(0.96);
+  opacity: 0.44;
+  border-radius: 20px;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+.hero-pane.hero-three .hero-left::after{
+  border-radius: 12px;
+  opacity: 0.98;
+  -webkit-mask-image: radial-gradient(closest-side, black 62%, rgba(0,0,0,0.65) 76%, transparent 100%);
+  mask-image: radial-gradient(closest-side, black 62%, rgba(0,0,0,0.65) 76%, transparent 100%);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+.hero-pane.hero-four .hero-right::before, .hero-pane.hero-four .hero-right::after{
+  /* pane-four was removed from markup; this background is left commented for potential future reuse */
+  /* background-image: url('../images/zmale1\ \(13\).jpg'); */
+  display:none;
+}
+.hero-pane.hero-five .hero-right::before, .hero-pane.hero-five .hero-right::after{
+  background-image: url('../images/zmale1\ \(13\).jpg');
+}
+/* Make hero-five right decorative images blend into background so sharp corners don't appear */
+.hero-pane.hero-five .hero-right::before{
+  /* soft halo behind the main content */
+  filter: blur(8px) saturate(0.96);
+  opacity: 0.44;
+  border-radius: 20px; /* match the generic right decoration */
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+.hero-pane.hero-five .hero-right::after{
+  /* sharp foreground image with a radial mask to fade edges to transparent */
+  border-radius: 12px;
+  opacity: 0.98;
+  -webkit-mask-image: radial-gradient(closest-side, black 62%, rgba(0,0,0,0.65) 76%, transparent 100%);
+  mask-image: radial-gradient(closest-side, black 62%, rgba(0,0,0,0.65) 76%, transparent 100%);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+/* Override the large left-pane decorative images for the fifth hero pane so the big model.jpg
+   is replaced with the matching zmale1 (16) image as well. */
+.hero-pane.hero-five .hero-left::before, .hero-pane.hero-five .hero-left::after{
+  background-image: url('../images/girl.jpg');
+}
+/* .hero-pane.hero-six .hero-right::before, .hero-pane.hero-six .hero-right::after{
+  background-image: url('..images/zmale1\ \(12\).jpg');
+} */
+
+/* Slight border radius & accent for the topbar brand to match the premium layout */
+.topbar-inner .brand .logo img{ border-radius:6px; box-shadow: 0 8px 18px rgba(0,0,0,0.12); }
+
+/* Responsive tuning for premium hero */
+@media (max-width: 900px){
+  .hero.premium{ padding:48px 0; }
+  .hero.premium .brand-title{ font-size:46px; }
+  .hero.premium .slider{ width:340px; height:320px; }
+  .hero.premium .hero-left{ width:100%; padding-right:0; }
+  .hero.premium .hero-right{ width:100%; margin-top:18px; justify-content:flex-start; transform:none; }
+}
+.container{ max-width:1200px; margin:0 auto; padding:0 24px; }
+/* Allow wider containers for the shop page so 5 columns show nicely */
+.container.catalog{ max-width:1400px; }
+.container.narrow{ max-width:1000px; }
+.hero .container{ display:flex; align-items:center; position:relative; z-index: 2; }
+.hero-left{ width:55%; }
+  .hero-left{ text-align:left; }
+/* Animate left content when slides change */
+.hero-left{ transition: transform 360ms cubic-bezier(.22,.8,.3,1), opacity 360ms ease; }
+.hero-left.slide-transition-forward{ transform: translateX(-20px); opacity: 0; }
+.hero-left.slide-transition-back{ transform: translateX(20px); opacity: 0; }
+.hero-left{ will-change: transform, opacity; }
+/* Subtle 'libreath' float in/out animation for left/right pane components */
+@keyframes softFloatIn { from{ transform: translateY(10px); opacity:0; } to{ transform: translateY(0); opacity:1; } }
+@keyframes softFloatOut { from{ transform: translateY(0); opacity:1; } to{ transform: translateY(-6px); opacity:0; } }
+.hero-left.animated-in, .hero-right .slider.animated-in{ animation: softFloatIn 360ms cubic-bezier(.22,.8,.3,1); }
+.hero-left.animated-out, .hero-right .slider.animated-out{ animation: softFloatOut 300ms cubic-bezier(.22,.8,.3,1); }
+.hero-right .slider.animated-in .slide.is-active{ transform: translateY(-14px) scale(1.14); }
+.brand-title{ font-size:44px; letter-spacing:10px; margin-bottom:12px; font-weight:800; }
+.lead{ font-size:18px; opacity:0.95; margin-bottom:18px; }
+.lead{ font-size:18px; opacity:0.95; margin-bottom:18px; }
+.cta{ display:inline-block; background:#000; color:#fff; padding:10px 14px; text-decoration:none; border-radius:3px; font-size:14px; }
+.hero-right{ width:45%; display:flex; justify-content:flex-end; position:relative; z-index:4; transform: translateX(var(--hero-right-offset)); transition: transform 240ms cubic-bezier(.22,.9,.28,.98); }
+.hero-right img.product{ width:320px; max-width:100%; transform: translateY(10px); }
+
+/* Slider inside hero-right */
+.hero-right .slider{
+  width:420px;
+  max-width:100%;
+  height:380px; /* slightly larger to enable a coverflow look */
+  border-radius:12px;
+  overflow: visible; /* allow partial prev/next slides to be visible */
+  background: transparent; /* slider background is transparent, slides hold rounded corners */
+  display:block;
+  position:relative; /* for dots */
+}
+.hero-right .slides{ display:flex; height:100%; width:100%; gap:0; align-items:center; justify-content:center; padding:0; box-sizing:border-box; }
+.hero-right .slide{ flex: 0 0 calc(100% / 3); min-width:160px; height:100%; object-fit:cover; display:block; border-radius:8px; transition: transform 460ms cubic-bezier(.22,.8,.3,1), opacity 420ms ease, filter 460ms ease; transform-origin:center center; /* Box shadow removed to reduce edge/border appearance */ box-shadow: none; background: transparent; overflow: hidden; }
+.hero-right .slide:hover{ transform: translateY(-8px) scale(1.06); filter: saturate(1.06) contrast(1.04); }
+
+/* Ensure images fill their slide, have no border, and blend at edges for a seamless visual */
+/* If slides are <img> elements (as in index.html), apply the same rules directly to .slide elements */
+.hero-right .slide{ display:block; width:100%; height:100%; object-fit:cover; object-position:center center; border:0; box-shadow:none; border-radius:inherit; }
+
+/* Subtle edge fade to help adjacent slides blend visually. This uses CSS masks where supported. */
+.hero-right .slide{ -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 12%, rgba(0,0,0,1) 88%, rgba(0,0,0,0) 100%); mask-image: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 12%, rgba(0,0,0,1) 88%, rgba(0,0,0,0) 100%); }
+
+/* If a slide is positioned left/right (prev/next) slightly soften its edges for better blending */
+.hero-right .slide.is-prev, .hero-right .slide.is-next { -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 18%, rgba(0,0,0,1) 82%, rgba(0,0,0,0) 100%); mask-image: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 18%, rgba(0,0,0,1) 82%, rgba(0,0,0,0) 100%); }
+/* Pointer/touch interaction helpers */
+.hero-right .slides{ touch-action: pan-y; cursor: grab; }
+.hero-right .slides:active{ cursor: grabbing; }
+
+/* Minimal navigation dots - optional visual feedback */
+.hero-right .slider .dots{ position:absolute; left:12px; right:12px; bottom:12px; display:flex; gap:8px; justify-content:center; pointer-events:none; }
+.hero-right .slider .dot{ width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,0.5); opacity:.7; pointer-events:auto; border:0; cursor:pointer; }
+.hero-right .slider .dot:focus{ outline: 2px solid rgba(255,255,255,0.75); }
+.hero-right .slider .dot:hover{ transform: scale(1.15); }
+.hero-right .slider .dot.active{ background:#fff; opacity:1; }
+
+/* Coverflow visual states */
+.hero-right .slide.is-active{ transform: translateY(-12px) scale(1.12) rotateY(0deg); opacity:1; filter: none; z-index:40; box-shadow: 0 28px 56px rgba(0,0,0,0.22); }
+.hero-right .slide.is-prev{ transform: translateX(-40px) rotateY(12deg) scale(0.92); opacity:0.9; filter: saturate(0.98) contrast(.98); z-index:10; }
+.hero-right .slide.is-next{ transform: translateX(40px) rotateY(-12deg) scale(0.98); opacity:0.95; filter: saturate(1.02) contrast(1); z-index:12; }
+.hero-right .slide.is-off{ transform: translateX(0) scale(.86) rotateY(0deg); opacity:0.6; filter: saturate(.9) blur(0.6px); z-index:1; }
+
+/* Specific sizes for the first hero pane's slider - static visual weight from largest to smallest */
+.hero-right .slides .slide.size-1{
+  transform: translateY(-10px) scale(1.24);
+  z-index:50;
+  box-shadow: 0 36px 72px rgba(0,0,0,0.28);
+  flex: 0 0 52%; /* a bit larger for greater emphasis */
+  margin-right: 24px;
+}
+.hero-right .slides .slide.size-2{
+  transform: translateY(-6px) scale(1.06);
+  z-index:30;
+  box-shadow: 0 22px 44px rgba(0,0,0,0.18);
+  flex: 0 0 32%;
+  margin-right: 18px;
+}
+.hero-right .slides .slide.size-3{
+  transform: translateY(0) scale(0.94);
+  z-index:12;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+  opacity:0.92;
+  /* Keep the third slide smaller but ensure it doesn't reduce to an unusably tiny width; 
+     increase a bit from 18% to 22% and enforce a min-width so the image retains legibility. */
+  flex: 0 0 22%;
+  min-width: 120px;
+  margin-right: 12px;
+}
+
+/* Responsive fallback: on smaller screens keep slides stacked and restore earlier flex sizes */
+@media (max-width: 900px){
+  .hero-right .slides .slide.size-1,
+  .hero-right .slides .slide.size-2,
+  .hero-right .slides .slide.size-3{
+    flex: 0 0 78%;
+    margin-right: 12px;
+  }
+}
+
+/* If a size class becomes active, slightly increase scale in active state for subtle highlight */
+.hero-right .slides .slide.size-1.is-active{ transform: translateY(-16px) scale(1.3); }
+.hero-right .slides .slide.size-2.is-active{ transform: translateY(-10px) scale(1.12); }
+.hero-right .slides .slide.size-3.is-active{ transform: translateY(-8px) scale(1.02); }
+
+/* Remove accent shadows for a flatter, borderless slider between images so they blend cleanly */
+.hero-right .slide.is-active, .hero-right .slides .slide.size-1, .hero-right .slides .slide.size-2, .hero-right .slides .slide.size-3 {
+  box-shadow: none !important;
+}
+
+/* New Arrivals */
+.product-catalog{ padding:36px 0 140px; background: var(--shop-bg); }
+.product-catalog h2{ font-size:16px; text-transform:uppercase; letter-spacing:2px; color:#333; margin-bottom:8px; }
+.product-catalog hr{ border:0; border-top:1px solid #e6e6e6; margin-bottom:22px; }
+
+/* Subtle full-width divider under the hero section */
+.hero-divider{
+  display:block;
+  border:0;
+  height:1px;
+  width:100%;
+  background: linear-gradient(90deg, rgba(119, 116, 116, 0.349) 0%, rgba(238, 236, 236, 0.856) 50%, rgba(0,0,0,0.02) 100%); /* subtle grey gradient */
+  margin: 22px 0; /* space above/below */
+  opacity: .95;
+}
+@media (max-width: 640px){
+  .hero-divider{ margin: 14px 0; }
+}
+.container.catalog{ max-width:1400px; margin:0 auto; }
+.catalog-grid{ display:grid; grid-template-columns: repeat(5, 220px); gap:38px; justify-content:center; align-items:stretch; grid-auto-rows:1fr; }
+/* Responsive: 5 columns on wide screens, drop to 4/3/2/1 at breakpoints (fixed 220px columns) */
+@media (max-width: 1400px){
+  .catalog-grid{ grid-template-columns: repeat(4, 220px); gap:34px; justify-content:center; }
+}
+@media (max-width: 1100px){
+  .catalog-grid{ grid-template-columns: repeat(3, 220px); gap:30px; justify-content:center; }
+}
+.product-card{ text-align:center; padding:18px; width:220px; display:flex; flex-direction:column; align-items:center; background:var(--card-bg); border:1px solid #ececec; border-radius:8px; box-sizing:border-box; box-shadow:0 6px 18px rgba(0,0,0,0.05); cursor:pointer; flex:1 1 auto; }
+.product-card img{ width:100%; max-width:180px; height:180px; object-fit:contain; display:block; margin:0 auto 6px; background:var(--card-bg); padding:12px; border-radius:6px; transition: transform .2s cubic-bezier(.2,.8,.2,1); }
+.product-card .meta{ margin-top:12px; }
+.product-card .title{ font-size:11px; color:#666; letter-spacing:1px; text-transform:uppercase; }
+.product-card .price{ font-size:13px; color:#222; font-weight:700; margin-top:6px; }
+.product-card .stars{ margin-top:6px; }
+/* Star rating widget: use layered unicode stars with an overlay to show partial (half / decimal) ratings */
+.product-card .stars{
+  --star-size: 12px;
+  font-size: var(--star-size);
+  --percent: 100%;
+  --star-color: #d4af37; /* premium gold */
+  display:inline-block;
+  position:relative;
+  line-height:1;
+  font-weight:700;
+  font-family: 'Inconsolata', 'Montserrat', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  color: #dcdcdc; /* fallback/empty star color */
+  letter-spacing: 3px;
+}
+.product-card .rating-value{
+  display:inline-block;
+  vertical-align: middle;
+  margin-left:8px;
+  color:#333; /* neutral text color for the numeric value */
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:1px;
+}
+/* Flying image (clone) animation */
+.flying-clone{
+  position:fixed;
+  z-index:99999;
+  pointer-events:none;
+  transition: transform var(--fly-duration) var(--fly-easing), opacity calc(var(--fly-duration) - .08s) ease;
+  transform-origin:center center;
+  will-change: transform, opacity;
+  border-radius:6px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.22);
+}
+
+/* small pop on cart to indicate success */
+.topbar .cart.cart-pop{ transform: scale(1.08); transition: transform calc(var(--fly-duration) / 5) var(--fly-easing); }
+.product-card .stars::before{
+  content: '★★★★★';
+  color: #dcdcdc; /* empty stars */
+  -webkit-text-stroke: 0 transparent;
+  text-shadow: 0 1px 0 rgba(0,0,0,0.04);
+}
+.product-card .stars::after{
+  content: '★★★★★';
+  position:absolute; left:0; top:0; overflow:hidden; width: var(--percent, 0%); white-space:nowrap; transition: width .18s ease;
+  /* Use a subtle gradient and clip to text to create a metallic gold feel */
+  background: linear-gradient(180deg, #fff9e6 0%, #ffd54a 30%, #d4af37 70%, #b88a12 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  /* Small shadow on empty stars for depth and darker edge */
+  text-shadow: 0 1px 0 rgba(0,0,0,0.04);
+  /* slight highlight + drop shadow for 'popped out' look */
+  text-shadow: 0 1px 0 rgba(255,255,255,0.35), 0 2px 8px rgba(0,0,0,0.18);
+}
+
+/* Visual feedback when adding to cart */
+.product-card.added-to-cart{ outline: 2px solid rgba(46,98,165,0.12); transform: translateY(-4px); transition: transform .12s ease, outline .12s ease; }
+.product-card:hover{ box-shadow:0 12px 28px rgba(0,0,0,0.08); transform: translateY(-2px); }
+.product-card:hover img{ transform: scale(1.06); }
+
+/* Product wrapper used for non-shop page catalog cards */
+.product-wrap{ display:flex; flex-direction:column; align-items:stretch; justify-content:space-between; gap:10px; width:220px; max-width:100%; }
+
+/* Button base & Add button style for catalog cards */
+.btn{ display:inline-block; padding:8px 10px; border-radius:4px; font-size:13px; text-decoration:none; border:1px solid transparent; cursor:pointer; }
+.product-wrap .btn-add{ background:#111; color:#fff; border: none; cursor: pointer; padding:8px 12px; margin-top:8px; width:140px; margin-top:12px; transition: background .12s ease, transform .12s ease, box-shadow .12s ease; align-self:center; }
+.product-wrap .btn-add:hover, .product-wrap .btn-add:focus{ background: #222; color: var(--accent-yellow); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.14); outline: none; }
+.product-wrap .btn-add:active{ background: #191919; color: var(--accent-yellow);} 
+.product-wrap .btn-add:focus{ box-shadow: 0 0 0 3px rgba(34,34,34,0.08); }
+
+/* WhatsApp UI removed */
+
+/* Footer */
+.site-footer{ background:#121212; color:#dcdcdc; margin-top:28px; padding-top: 2.5rem; padding-bottom: 20px; text-transform: none; }
+
+/* Align footer brand with the container content */
+.site-footer > .brand{ margin-left: 16%; }
+/* Nudge the footer brand up a bit so it sits closer to the top of the footer */
+.site-footer > .brand{ margin-top: -12px; }
+
+/* Reset for small screens so it doesn't overlap content */
+@media (max-width: 640px){
+  .site-footer > .brand{ margin-left: 24px; margin-top: 0; }
+}
+
+/* Enhanced main-nav hover and active styles
+   - underline grow (uses ::before since ::after is disabled earlier)
+   - subtle moving sheen using background-gradient on hover
+   - active support via `.active` or `aria-current="page"`
+*/
+.main-nav a{
+  /* allow subtle sheen/background animation */
+  background-image: linear-gradient(90deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.03) 40%, rgba(255,255,255,0.10) 60%, rgba(255,255,255,0.00) 100%);
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+  background-position: -60% 0;
+}
+.main-nav a::before{
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -8px;
+  transform: translateX(-50%) scaleX(0);
+  transform-origin: center;
+  width: 64%;
+  height: 3px;
+  background: #111;
+  border-radius: 3px;
+  transition: transform .26s cubic-bezier(.2,.9,.3,1), opacity .18s ease;
+  opacity: 0.95;
+  pointer-events: none;
+}
+/* Remove the steady underline rectangle for the 'Collections' link (mega menu trigger).
+  This keeps the visual anchor for normal nav links while avoiding a permanent
+  underline on the non-navigating Collections trigger. */
+.main-nav .collections-link::before{ display:none !important; }
+.main-nav a:hover, .main-nav a:focus{
+  color: #000; /* slightly darker on hover */
+  transform: translateY(-2px);
+}
+.main-nav a:hover::before, .main-nav a:focus::before{
+  transform: translateX(-50%) scaleX(1);
+}
+.main-nav a:hover{
+  background-size: 160% 100%;
+  background-position: 120% 0;
+  transition: background-size .68s cubic-bezier(.2,.9,.3,1), background-position .68s cubic-bezier(.2,.9,.3,1), transform .12s ease;
+}
+
+/* Active / current page state: visible, slightly bolder and anchored underline */
+.main-nav a.active, .main-nav a[aria-current="page"]{
+  color: #000;
+  font-weight: 800;
+}
+.main-nav a.active::before, .main-nav a[aria-current="page"]::before{
+  transform: translateX(-50%) scaleX(1);
+  opacity: 1;
+}
+
+/* Keep behaviour simple for reduced-motion users */
+@media (prefers-reduced-motion: reduce){
+  .main-nav a{ background-size:0% 100% !important; background-position:0 0 !important; }
+  .main-nav a::before{ transition: none !important; transform: translateX(-50%) scaleX(1) !important; }
+  .main-nav a:hover{ transform: none !important; }
+}
+.site-footer .container.footer-top{ display:flex; gap:30px; align-items:flex-start; padding:48px 24px; margin-top: -20px; }
+
+@media (max-width: 640px){
+  .site-footer .container.footer-top{ margin-top: 0; }
+}
+.site-footer .footer-left{ width:28%; }
+.site-footer .footer-col.contact{ width:30%; }
+.site-footer .footer-logo{ color:#fff; font-weight:800; font-size:22px; margin-bottom:10px; }
+.site-footer .footer-desc{ color:#bdbdbd; font-size:13px; line-height:1.6; }
+.site-footer .footer-columns{ display:flex; gap:64px; flex:1; }
+.site-footer .footer-col h4{ color:#fff; font-size:13px; margin-bottom:12px; letter-spacing:1px; text-transform: uppercase; }
+.site-footer .footer-col ul{ list-style:none; padding:0; margin:0; color:#bdbdbd; font-size:13px; }
+.site-footer .footer-col ul li{ margin-bottom:10px; opacity:.9; }
+.site-footer .footer-col a{ color:#bdbdbd; text-decoration:none; }
+.site-footer .footer-right{ width:170px; display:flex; align-items:flex-start; justify-content:flex-end; }
+.site-footer .socials{ display:flex; gap:10px; }
+.site-footer .social{ display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px; background:#000; color:#fff; border-radius:4px; font-size:12px; text-decoration:none; }
+
+/* Ensure Lottie players and inline videos inside footer socials are centered and consistent */
+.site-footer .social lottie-player,
+.site-footer .social img,
+.site-footer .social video{
+  display:block;
+  width:36px;
+  height:36px;
+  object-fit:contain;
+}
+.site-footer .social{ width:auto; height:auto; padding:4px; border-radius:8px; }
+
+/* Social tooltip: light grey text with subtle translucent background */
+.site-footer .social[data-tooltip]{ position: relative; }
+.site-footer .social[data-tooltip]::after{
+  content: attr(data-tooltip);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) translateY(0);
+  bottom: calc(100% + 8px);
+  background: rgba(255,255,255,0.04); /* subtle translucent */
+  color: #d8d8d8; /* grey text */
+  padding: 6px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .12s ease, transform .12s ease;
+  z-index: 20;
+}
+.site-footer .social[data-tooltip]::before{
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: calc(100% + 4px);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid rgba(255,255,255,0.04);
+  opacity: 0;
+  transition: opacity .12s ease;
+  z-index: 20;
+}
+.site-footer .social[data-tooltip]:hover::after,
+.site-footer .social[data-tooltip]:focus::after,
+.site-footer .social[data-tooltip]:focus-visible::after{
+  opacity: 1;
+  transform: translateX(-50%) translateY(-6px);
+}
+.site-footer .social[data-tooltip]:hover::before,
+.site-footer .social[data-tooltip]:focus::before,
+.site-footer .social[data-tooltip]:focus-visible::before{
+  opacity: 1;
+}
+
+/* Avoid tooltips on touch devices (prevent double-tap conflicts) */
+@media (hover: none) and (pointer: coarse){
+  .site-footer .social[data-tooltip]::after,
+  .site-footer .social[data-tooltip]::before{ display:none; }
+}
+
+.site-footer-bottom{ background:#111; padding:16px 0; border-top:1px solid rgba(255,255,255,0.04); }
+.site-footer-bottom .bottom-inner{ display:flex; justify-content:center; gap:12px; align-items:center; color:#dcdcdc; font-size:14px; padding:0 24px; flex-wrap:wrap; }
+.site-footer-bottom .bottom-inner > div{ text-align:center; }
+.site-footer-bottom .bottom-inner > div:first-child{ display:block; width:100%; font-size:14px; font-weight:600; }
+
+/* Reach Us button in footer bottom */
+.site-footer-bottom .made-with{
+  display:inline-flex;
+  gap:12px;
+  align-items:center;
+  color:#d6d6d6;
+  font-size:14px;
+  font-weight:500;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing:0.6px;
+}
+.site-footer-bottom .made-with::before{
+  content: '★';
+  color: #f3b84a;
+  font-size:14px;
+  margin-right:6px;
+  opacity:0.92;
+}
+.site-footer-bottom .made-with .byund{
+  display:inline-block;
+  font-weight:800;
+  letter-spacing:0.8px;
+  font-family: 'Inconsolata', 'Montserrat', monospace;
+  background: linear-gradient(90deg, #f5d486, #f3b84a);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-transform: uppercase;
+  font-size:13px;
+}
+.site-footer-bottom .reach-us-btn{
+  display:inline-flex;
+  gap:8px;
+  align-items:center;
+  margin-left:10px;
+  padding:8px 14px;
+  color:#111;
+  text-decoration:none;
+  border-radius:999px;
+  font-weight:700;
+  font-size:13px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.92));
+  box-shadow: 0 8px 28px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.6);
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: transform .18s ease, box-shadow .18s ease, background .14s ease, color .14s ease;
+}
+.site-footer-bottom .reach-us-btn:focus, .site-footer-bottom .reach-us-btn:hover{
+  transform: translateY(-3px);
+  color:#000;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.34), 0 0 18px rgba(243,184,74,0.08);
+  background: linear-gradient(90deg, rgba(246, 244, 241, 1), rgba(243, 231, 199, 1));
+}
+.site-footer-bottom .reach-us-btn:focus{ outline: 3px solid rgba(243,184,74,0.14); outline-offset: 3px; }
+
+@media (max-width:900px){
+  .site-footer-bottom .bottom-inner{ font-size:13px; }
+  .site-footer-bottom .reach-us-btn{ margin-left:0; margin-top:6px; }
+}
+.site-footer-bottom .heart{ color:#ff5252; margin-left:6px; }
+
+@media (max-width: 900px){
+  .site-footer .container.footer-top{ flex-direction:column; }
+  .site-footer .footer-left{ width:100%; }
+  .site-footer .footer-columns{ width:100%; flex-direction:row; gap:22px; overflow:auto; }
+  .site-footer .footer-right{ width:100%; justify-content:flex-start; margin-top:10px; }
+  .site-footer-bottom .bottom-inner{ flex-direction:column; gap:8px; }
+}
+
+/* Contact column restyling */
+.site-footer .footer-col.contact h4{
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  font-size: 14px;
+  margin-bottom: 14px;
+  display: inline-block;
+  text-transform: uppercase;
+}
+.site-footer .footer-col.contact h4::after{
+  content: '';
+  display:block;
+  height: 3px;
+  width: 40px;
+  background: #000000; /* warm accent */
+  margin-top: 8px;
+  border-radius: 3px;
+}
+.site-footer .footer-col.contact ul{ list-style:none; padding:0; margin:0; }
+.site-footer .footer-col.contact ul li{
+  display:flex;
+  gap:12px;
+  align-items:flex-start; /* keep address flow for multi-line */
+  color: #d8d8d8;
+  font-size: 14px;
+  margin-bottom: 12px;
+  line-height: 1.4;
+  text-transform: none; /* keep normal case */
+  letter-spacing: 0.3px; /* tighter spacing for body copy */
+}
+.site-footer .footer-col.contact .icon{
+  flex: 0 0 38px;
+  width: 38px;
+  height: 38px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background: rgba(255,255,255,0.04);
+  color: #fff;
+  border-radius: 10px;
+  font-size: 16px;
+}
+.site-footer .footer-col.contact .icon{ transition: background-color 140ms ease, transform 160ms ease, box-shadow 160ms ease; }
+.site-footer .footer-col.contact ul li:hover .icon{ transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.16); }
+.site-footer .footer-col.contact .icon.pin:hover{ background: rgba(218,46,46,0.22); color: #fff; }
+.site-footer .footer-col.contact .icon.mail:hover{ background: rgba(255,255,255,0.22); color: #000; }
+.site-footer .footer-col.contact .icon.phone:hover{ background: rgba(37,211,102,0.22); color: #fff; }
+.site-footer .footer-col.contact .icon.pin{ background: rgba(218,46,46,0.12); color: #E53935; }
+.site-footer .footer-col.contact .icon.mail{ background: rgba(255,255,255,0.12); color: #ffffff; }
+.site-footer .footer-col.contact .icon.phone{ background: rgba(37,211,102,0.12); color: #25D366; }
+.site-footer .footer-col.contact a{ color: #d8d8d8; text-decoration:none; transition: color 160ms ease; font-weight:500; }
+.site-footer .footer-col.contact a:hover{ color: #FBC02D; text-decoration: underline; }
+.site-footer .footer-col.contact li a{ text-transform:none; }
+.site-footer .footer-col.contact .contact-text{ color:#d8d8d8; display:block; }
+@media (max-width: 640px){
+  .site-footer .footer-col.contact ul li{ gap:8px; }
+  .site-footer .footer-col.contact .icon{ width:30px; height:30px; font-size:14px; border-radius:7px; }
+}
+
+/* Disable caret (text cursor) inside the footer to avoid a blinking caret when clicking
+   non-editable text. We explicitly avoid applying this to inputs, textareas and
+   contenteditable elements so accessibility / forms aren't affected. */
+.site-footer :not(input):not(textarea):not([contenteditable]){
+  caret-color: transparent !important;
+}
+
+/* Quick links and Sublink column styling */
+.site-footer .footer-col.links, .site-footer .footer-col.sublinks{ width:18%; }
+.site-footer .footer-col.links h4, .site-footer .footer-col.sublinks h4{
+  text-transform: uppercase; /* consistent header style */
+  letter-spacing: 2px;
+  font-weight: 800;
+  font-size: 13px;
+  color: #fff;
+}
+.site-footer .footer-col.links ul li, .site-footer .footer-col.sublinks ul li{
+  margin-bottom: 12px;
+  text-transform: none; /* keep normal title case for links */
+}
+.site-footer .footer-col.links a, .site-footer .footer-col.sublinks a{
+  color: #d8d8d8; /* match contact text */
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 13px; /* slightly smaller like screenshot */
+  letter-spacing: 0.2px;
+}
+.site-footer .footer-col.links a:hover, .site-footer .footer-col.sublinks a:hover{
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+/* Slight spacing tweak for very narrow screens where columns wrap */
+@media (max-width: 900px){
+  .site-footer .footer-col.links, .site-footer .footer-col.sublinks{ width: 48%; }
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 900px){
+  .hero-left{ width:60%; }
+  .hero-right{ width:40%; }
+  .catalog-grid{ grid-template-columns: repeat(2, 220px); justify-content:center; }
+  .search-wrap input{ width:180px; }
+  .hero-right .slide{ flex: 0 0 48%; }
+}
+@media (max-width: 640px){
+  .topbar-inner{ padding:10px 16px; }
+  .brand .logo{ height:36px; font-size:13px; }
+  .main-nav ul{ gap:12px; overflow:auto; padding:6px 10px; }
+  .main-nav { min-height:56px; }
+
+  /* Mobile: constrain header content to max-width:500px for narrow devices */
+  @media (max-width: 500px){
+    .topbar-inner{
+      max-width:500px;
+      width:calc(100% - 20px);
+      margin:0 auto;
+      padding:8px 10px;
+      gap:8px; 
+      align-items:center;
+      display:flex;
+      justify-content:space-between;
+    }
+    .brand .logo img{ height:36px; width:auto; max-width:140px; }
+    .brand-links{ display:none; }
+    .search-wrap{ display:none; }
+    .top-actions .notif-btn{ margin-right:0; padding:6px; }
+    .top-actions .notif-btn img{ width:20px; height:20px; }
+    .main-nav{ padding:6px 0; }
+    /* Hide desktop main-nav on small screens; use hamburger menu instead */
+    .main-nav{ display:none; }
+    .main-nav ul{ gap:8px; overflow-x:auto; padding:6px 8px; justify-content:flex-start; }
+    .main-nav a{ font-size:11px; padding:6px 6px; }
+    .main-nav .has-mega .mega-menu{ display:none !important; }
+    /* reduce badge size so it doesn't push layout */
+    .notif-badge{ font-size:11px; padding:2px 6px; }
+    /* Add top padding to the fixed header at very small widths to create breathing space */
+    .topbar{ padding-top: 30px; }
+  }
+  .hero{ padding:40px 0; }
+  .hero .container{ flex-direction:column; align-items:flex-start; gap:18px; }
+  .hero-left{ width:100%; }
+  .hero-right{ width:100%; justify-content:flex-start; transform:none; }
+  .hero-right img.product{ width:220px; }
+  .hero-right .slider{ width:220px; height:220px; }
+  .catalog-grid{ grid-template-columns: 1fr; }
+  .hero-right .slide{ flex: 0 0 78%; }
+}
+
+/* Hamburger icon - visible only on small screens (<=500px) */
+.hamburger{ display:none; background:transparent; border:0; padding:6px; cursor:pointer; -webkit-tap-highlight-color: transparent; min-width:var(--site-hamburger-button-size); min-height:var(--site-hamburger-button-size); }
+.hamburger .bar{ display:block; width:20px; height:2px; background:#fff; margin:4px 0; border-radius:2px; transition:transform 180ms cubic-bezier(.22,.9,.28,.98), opacity 120ms ease; }
+
+/* Use SVG icons instead of bars: show the burger open icon by default and the cancel icon when `.open` is present */
+.hamburger svg{ width:var(--site-menu-icon-size); height:var(--site-menu-icon-size); display:inline-block; }
+.hamburger .hamburger-open{ display:inline-block; }
+.hamburger .hamburger-close{ display:none; }
+.hamburger.open .hamburger-open{ display:none; }
+.hamburger.open .hamburger-close{ display:inline-block; }
+.hamburger{ color: #fff !important; }
+.hamburger .bar{ display:none; }
+
+/* Mobile menu (off-canvas from left) */
+.mobile-menu{ position:fixed; top:40; left:0; height:100vh; width:min(360px, 85%); max-width:500px; background: linear-gradient(to top, rgb(0, 0, 0), rgba(105, 105, 105, 0.767)), #dfdfdf; color:#ffffff; transform:translateX(-110%); transition:transform 280ms cubic-bezier(.22,.9,.28,.98); z-index:99998; overflow:auto; box-shadow: 0 12px 40px rgba(0,0,0,0.48); }
+.mobile-menu.open{ transform:translateX(0); }
+.mobile-menu-inner{ padding:18px; }
+.mobile-menu .brand-links .small-link{ display:block; padding:12px 0; color: #ffffff; }
+.mobile-menu .mobile-main-nav ul{ list-style:none; padding:0; margin: 8px 0; }
+.mobile-menu .mobile-main-nav a{ display:block; padding:12px 0; color:#ffffff; text-decoration:none; }
+
+/* Style for mobile 'Collections' accordion inside the mobile nav */
+.mobile-main-nav .has-mega{ border-top: 1px solid rgba(255,255,255,0.04); margin-top:6px; }
+.mobile-main-nav .has-mega .collections-link{ display:flex; justify-content:space-between; align-items:center; padding:12px 0; color:#1e90ff; font-weight:600; }
+.mobile-main-nav .has-mega .collections-link::after{ content:'▾'; font-size:12px; color:rgba(255,255,255,0.9); transition:transform 160ms ease; }
+.mobile-main-nav .has-mega.open .collections-link::after{ transform: rotate(180deg); }
+.mobile-main-nav .has-mega .mega-menu{ display:none; padding-left:0; margin-top:8px; }
+.mobile-main-nav .has-mega.open .mega-menu{ display:block; }
+.mobile-main-nav .has-mega .mega-menu .mega-columns{ display:block; gap:8px; }
+.mobile-main-nav .has-mega .mega-menu .mega-col{ display:flex; gap:10px; align-items:center; padding:8px 0; }
+.mobile-main-nav .has-mega .mega-col-head img{ width:40px; height:40px; object-fit:cover; border-radius:8px; }
+.mobile-main-nav .has-mega .mega-menu h4{ color:#fff; margin:0; font-size:13px; font-weight:500; }
+
+/* White background and black text for Collections inside mobile menu */
+.mobile-main-nav .has-mega .mega-menu{
+  background:#fff; color:#111; padding:12px; border-radius:10px; box-shadow: 0 10px 24px rgba(0,0,0,0.14);
+}
+.mobile-main-nav .has-mega .mega-menu h4{ color:#111; }
+.mobile-main-nav .has-mega .mega-menu a{ color:#111; }
+.mobile-main-nav .has-mega .mega-col-head img{ width:46px; height:46px; border-radius:8px; }
+.mobile-main-nav .has-mega .mega-col{ padding:8px 6px; border-bottom: 1px dashed rgba(0,0,0,0.06); }
+.mobile-main-nav .has-mega .mega-col:last-child{ border-bottom:none; }
+
+/* Collections link color when collapsed/expanded */
+.mobile-main-nav .has-mega .collections-link{ color: #fff; }
+.mobile-main-nav .has-mega.open .collections-link{ color: #111; }
+
+.mobile-menu-close{ background:transparent; border:0; color:#fff; font-size:26px; line-height:1; padding:8px; cursor:pointer; position:absolute; top:8px; right:8px; }
+.mobile-menu-close svg{ width:var(--site-mobile-close-size); height:var(--site-mobile-close-size); display:inline-block; }
+.mobile-menu-close{ color: #fff; }
+.mobile-menu-backdrop{ position:fixed; inset:0; background:rgba(0,0,0,0.44); z-index:99997; opacity:0; transition:opacity 200ms ease; }
+.mobile-menu-backdrop.hidden{ pointer-events:none; opacity:0; }
+.mobile-menu-backdrop.visible{ pointer-events:auto; opacity:1; }
+
+/* Burger morph into X when open */
+.hamburger.open .bar:nth-child(1){ transform: translateY(6px) rotate(45deg); }
+.hamburger.open .bar:nth-child(2){ opacity:0; transform: translateX(-8px); }
+.hamburger.open .bar:nth-child(3){ transform: translateY(-6px) rotate(-45deg); }
+
+/* Prevent background scrolling while mobile menu is open */
+body.no-scroll{ overflow:hidden; }
+
+/* Smaller, lighter variant for the checkout page overlay */
+@media (max-width:500px){
+  .hamburger{ display:inline-flex; align-items:center; justify-content:center; flex-direction:column; }
+  /* Ensure the topbar inner center contains logo, hamburger & cart */
+  .topbar-inner{ justify-content:space-between; position:relative; }
+  /* Center the logo horizontally in the header and vertically aligned */
+  .topbar-inner .brand .logo{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); z-index:4; }
+  /* Place the hamburger at the left edge of the header so logo remains centered */
+  .brand .hamburger{ order:0; margin-right:0; position:absolute; left:12px; top:50%; transform:translateY(-50%); z-index:5; }
+  /* Keep the cart fixed to the right inside top-actions */
+  .top-actions{ position:relative; }
+}

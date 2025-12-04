@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EMMY STORE — Home</title>
+  <link rel="stylesheet" href="styles/index.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;800&display=swap" rel="stylesheet" />
+  <!-- Inconsolata - preconnect + font import -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;400;600;700;900&display=swap"
+    rel="stylesheet" />
+  <!-- Lottie player for animated social icons -->
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@1.5.7/dist/lottie-player.js"></script>
+</head>
+
+<body class="index-page">
+  <!-- Top navigation / header -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <a href="index.html" class="logo" aria-label="9TY9INE — Home">
+          <img src="images/logo.jpg" alt="9TY9INE logo" />
+        </a>
+        <!-- Mobile hamburger button (left side) -->
+        <button class="hamburger" id="hamburgerBtn" aria-controls="mobileMenu" aria-expanded="false" aria-label="Open menu">
+          <svg class="hamburger-open" aria-hidden="true" width="20" height="20" viewBox="0 0 432 384" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M0 336v-48h432v48H0zm0-120v-48h432v48H0zM0 48h432v48H0V48z"/></svg>
+            <svg class="hamburger-close icon-cancel" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 5L5 19M5 5l14 14"/></svg>
+        </button>
+        <nav class="brand-links" aria-label="Quick links">
+          <a class="small-link" href="shop.html">Shop</a>
+          <a class="small-link" href="shop.html?category=men">Men</a>
+          <a class="small-link" href="shop.html?category=women">Women</a>
+          <a class="small-link" href="login.html">Login</a>
+        </nav>
+      </div>
+      <nav class="top-actions">
+        <div class="search-wrap">
+          <input type="search" placeholder="Search everything" id="search" aria-label="Search" />
+        </div>
+        <a class="notif-btn cart" href="checkout.html" aria-label="Cart" aria-haspopup="true" aria-expanded="false">
+          <img src="icons/cart.svg" alt="Cart" width="20" height="20" aria-hidden="true" />
+          <span class="notif-badge" aria-hidden="false">0</span>
+        </a>
+      </nav>
+    </div>
+    <nav class="main-nav inconsolata-nav">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li class="has-mega">
+          <a href="#" class="collections-link" aria-haspopup="true" aria-expanded="false">Collections</a>
+          <div class="mega-menu" role="menu" aria-hidden="true">
+            <div class="mega-columns">
+              <div class="mega-col">
+                <div class="mega-col-head">
+                  <img src="images/p1.jpeg" alt="New Arrivals" class="mega-col-logo" />
+                  <h4>NEW ARRIVALS</h4>
+                </div>
+              </div>
+              <div class="mega-col">
+                <div class="mega-col-head">
+                  <img src="images/p2.jpeg" alt="Best Sellers" class="mega-col-logo" />
+                  <h4>BEST SELLERS</h4>
+                </div>
+
+              </div>
+              <div class="mega-col">
+                <div class="mega-col-head">
+                  <img src="images/a1.jpg" alt="Casual Wear" class="mega-col-logo" />
+                  <h4>CAPS</h4>
+                </div>
+
+              </div>
+              <div class="mega-col">
+                <div class="mega-col-head">
+                  <img src="images/h1.jpg" alt="Workwear" class="mega-col-logo" />
+                  <h4>HOODIES</h4>
+                </div>
+
+              </div>
+              <div class="mega-col">
+                <div class="mega-col-head">
+                  <img src="images/blueshoe.jpg" alt="Footwear" class="mega-col-logo" />
+                  <h4>FOOTWEAR</h4>
+                </div>
+
+              </div>
+              <div class="mega-col">
+                <div class="mega-col-head">
+                  <img src="images/pnco.jpg" alt="Accessories" class="mega-col-logo" />
+                  <h4>FOR WOMEN</h4>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </li>
+        <li><a href="faq.html">FAQs</a></li>
+        <li><a href="login.html">Login</a></li>
+      </ul>
+    </nav>
+  </header>
+  <!-- Mobile off-canvas menu -->
+  <div id="mobileMenu" class="mobile-menu" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="mobile-menu-inner">
+      <nav class="brand-links mobile-brand-links" aria-label="Quick links">
+        <a class="small-link" href="shop.html">Shop</a>
+        <a class="small-link" href="shop.html?category=men">Men</a>
+        <a class="small-link" href="shop.html?category=women">Women</a>
+        <a class="small-link" href="login.html">Login</a>
+      </nav>
+      <nav class="mobile-main-nav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li class="has-mega">
+            <a href="#" class="collections-link" aria-haspopup="true" aria-expanded="false">Collections</a>
+            <div class="mega-menu" role="menu" aria-hidden="true">
+              <div class="mega-columns">
+                <div class="mega-col">
+                  <div class="mega-col-head">
+                    <img src="images/p1.jpeg" alt="New Arrivals" class="mega-col-logo" />
+                    <h4>NEW ARRIVALS</h4>
+                  </div>
+                </div>
+                <div class="mega-col">
+                  <div class="mega-col-head">
+                    <img src="images/p2.jpeg" alt="Best Sellers" class="mega-col-logo" />
+                     <h4>BEST SELLERS</h4>
+                  </div>
+                </div>
+                <div class="mega-col">
+                  <div class="mega-col-head">
+                    <img src="images/a1.jpg" alt="Casual Wear" class="mega-col-logo" />
+                    <h4>CAPS</h4>
+                  </div>
+                </div>
+                <div class="mega-col">
+                  <div class="mega-col-head">
+                    <img src="images/h1.jpg" alt="Workwear" class="mega-col-logo" />
+                    <h4>HOODIES</h4>
+                  </div>
+                </div>
+                <div class="mega-col">
+                  <div class="mega-col-head">
+                    <img src="images/blueshoe.jpg" alt="Footwear" class="mega-col-logo" />
+                    <h4>FOOTWEAR</h4>
+                  </div>
+                </div>
+                <div class="mega-col">
+                  <div class="mega-col-head">
+                    <img src="images/pnco.jpg" alt="Accessories" class="mega-col-logo" />
+                    <h4>FOR WOMEN</h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li><a href="faq.html">FAQs</a></li>
+          <li><a href="login.html">Login</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <div id="mobileMenuBackdrop" class="mobile-menu-backdrop hidden" aria-hidden="true"></div>
+
+  <!-- Hero -->
+  <section class="hero premium">
+    <div class="hero-scroller">
+      <div class="hero-pane hero-one">
+        <div class="container">
+          <div class="hero-left slide-from-right" aria-live="polite">
+            <h1 class="brand-title">MEN'S COLLECTION</h1>
+            <p class="lead">Compliment Men's Fashion &amp; Lifestyle</p>
+            <a class="cta" href="shop.html?category=men">Shop Men's</a>
+          </div>
+          <div class="hero-right">
+            <div class="slider" aria-label="Hero product slider" data-auto="false">
+              <div class="slides">
+                <img class="slide size-1" src="images/zmale1 (1).jpg" alt="Men's Jacket" data-title="Men's Jacket"
+                  data-subtext="Tailored fits for everyday" data-cta-label="Shop Men's Jacket" />
+                <img class="slide size-2" src="images/zmale1 (7).jpg" alt="Men's Beanie" data-title="Men's Beanie"
+                  data-subtext="Stay warm, look cool" data-cta-label="Buy Men's Beanie" />
+                <img class="slide size-3" src="images/zmale1 (3).jpg" alt="Men's Tee" data-title="Men's Tee"
+                  data-subtext="Effortless basics for everyday" data-cta-label="Get Men's Tee" loading="eager" width="540" height="420" decoding="async" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-pane hero-two" aria-hidden="true">
+        <div class="container">
+          <div class="hero-left slide-from-right" aria-hidden="true">
+            <h1 class="brand-title">CAPS</h1>
+            <p class="lead">Style & Comfort For Every Head</p>
+            <a class="cta" href="shop.html?category=caps" aria-label="Explore our caps" data-cta-label="Explore Caps">Explore Caps</a>
+          </div>
+          <div class="hero-right" aria-hidden="true">
+            <div class="slider" aria-hidden="true" data-auto="false"></div>
+          </div>
+        </div>
+      </div>
+      <!-- Pane 3: Fade effect -->
+      <div class="hero-pane hero-three">
+        <div class="container">
+          <div class="hero-left slide-from-right" aria-live="polite">
+            <h1 class="brand-title">HOODIES</h1>
+            <p class="lead">Cozy, Casual &amp; Street-ready</p>
+            <a class="cta" href="shop.html?category=hoodies" aria-label="Explore our hoodies" data-cta-label="Explore Hoodies">Explore Hoodies</a>
+          </div>
+          <div class="hero-right">
+            <div class="slider" aria-label="Hero fade slider" data-effect="fade" data-auto="true"></div>
+          </div>
+        </div>
+      </div>
+      <!-- Pane 4 removed (ACCESSORIES) — using four hero panes now -->
+
+      <!-- Pane 5: Zoom (Ken Burns) effect -->
+      <div class="hero-pane hero-five">
+        <div class="container">
+          <div class="hero-left slide-from-right" aria-live="polite">
+            <h1 class="brand-title">FEMALE WEARS</h1>
+            <p class="lead">Main‑character fits & drip for every vibe</p>
+            <a class="cta" href="shop.html?category=women" aria-label="Cop the fits" data-cta-label="Cop the Fits">Cop the Fits</a>
+          </div>
+          <div class="hero-right">
+            <div class="slider" aria-label="Hero zoom" data-effect="zoom" data-auto="true"></div>
+          </div>
+        </div>
+      </div>
+      <!-- Pane 6 removed: we now use 5 panes only -->
+    </div>
+  </section>
+  <!-- Subtle divider to visually separate hero from product catalog -->
+  <hr class="hero-divider" aria-hidden="true" />
+
+  <!-- Product catalog (replaced New Arrivals) -->
+  <section id="items" class="product-catalog">
+    <div class="container catalog">
+      <h2>NEW ARRIVALS</h2>
+      <hr />
+      <div class="catalog-grid">
+        <!-- Local product cards using images/p1.jpeg - images/p9.jpeg -->
+        <div class="product-wrap">
+          <article class="product-card">
+            <img src="images/p1.jpeg" alt="FOLLOW GOD - ateliers sleeve" />
+            <div class="meta">
+              <div class="title">FOLLOW GOD - ATELIERS SLEEVE</div>
+              <div class="price">₦80,000.00</div>
+              <div class="stars" data-rating="5" aria-label="5 out of 5 stars" role="img"></div>
+            </div>
+          </article>
+          <button class="btn btn-add">Add to cart</button>
+        </div>
+        <div class="product-wrap">
+          <article class="product-card">
+            <img src="images/p2.jpeg" alt="Beanie" />
+            <div class="meta">
+              <div class="title">FOLLOW GOD - STONED BEANIE</div>
+              <div class="price">₦40,000.00</div>
+              <div class="stars" data-rating="4" aria-label="4 out of 5 stars" role="img"></div>
+            </div>
+          </article>
+          <button class="btn btn-add">Add to cart</button>
+        </div>
+        <div class="product-wrap">
+          <article class="product-card">
+            <img src="images/p3.jpeg" alt="Angel Tee" />
+            <div class="meta">
+              <div class="title">FOLLOW GOD - ANGEL TEE</div>
+              <div class="price">₦70,000.00</div>
+              <div class="stars" data-rating="4.5" aria-label="4.5 out of 5 stars" role="img"></div>
+            </div>
+          </article>
+          <button class="btn btn-add">Add to cart</button>
+        </div>
+        <div class="product-wrap">
+          <article class="product-card">
+            <img src="images/p4.jpeg" alt="Armless Tee" />
+            <div class="meta">
+              <div class="title">FOLLOW GOD - RARE ARMLESS TEE</div>
+              <div class="price">₦60,000.00</div>
+              <div class="stars" data-rating="5" aria-label="5 out of 5 stars" role="img"></div>
+            </div>
+          </article>
+          <button class="btn btn-add">Add to cart</button>
+        </div>
+        <div class="product-wrap">
+          <article class="product-card">
+            <img src="images/p5.jpeg" alt="Summer Tee" />
+            <div class="meta">
+              <div class="title">FOLLOW GOD - SUMMER TEE</div>
+              <div class="price">₦70,000.00</div>
+              <div class="stars" data-rating="4" aria-label="4 out of 5 stars" role="img"></div>
+            </div>
+          </article>
+          <button class="btn btn-add">Add to cart</button>
+        </div>
+        <div class="product-wrap">
+          <article class="product-card">
+            <img src="images/p6.jpeg" alt="234 Tee" />
+            <div class="meta">
+              <div class="title">FOLLOW GOD - -234 TEE</div>
+              <div class="price">₦70,000.00</div>
+              <div class="stars" data-rating="4.5" aria-label="4.5 out of 5 stars" role="img"></div>
+            </div>
+          </article>
+          <button class="btn btn-add">Add to cart</button>
+        </div>
+        <div class="product-wrap">
+          <article class="product-card">
+            <img src="images/p7.jpeg" alt="Rare tee" />
+            <div class="meta">
+              <div class="title">FOLLOW GOD - RARE TEE</div>
+              <div class="price">₦70,000.00</div>
+              <div class="stars" data-rating="5" aria-label="5 out of 5 stars" role="img"></div>
+            </div>
+          </article>
+          <button class="btn btn-add">Add to cart</button>
+        </div>
+        <div class="product-wrap">
+          <article class="product-card">
+            <img src="images/p8.jpeg" alt="Ride On Armless" />
+            <div class="meta">
+              <div class="title">FOLLOW GOD - RIDE ON ARMLESS</div>
+              <div class="price">₦60,000.00</div>
+              <div class="stars" data-rating="4" aria-label="4 out of 5 stars" role="img"></div>
+            </div>
+          </article>
+          <button class="btn btn-add">Add to cart</button>
+        </div>
+        <div class="product-wrap">
+          <article class="product-card">
+            <img src="images/p9.jpeg" alt="Motorsport Tee" />
+            <div class="meta">
+              <div class="title">FOLLOW GOD - MOTORSPORT TEE</div>
+              <div class="price">₦70,000.00</div>
+              <div class="stars" data-rating="4.5" aria-label="4.5 out of 5 stars" role="img"></div>
+            </div>
+          </article>
+          <button class="btn btn-add">Add to cart</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="brand">
+      <a href="index.html" class="logo" aria-label="9TY9INE — Home">
+        <img src="images/logo.jpg" alt="9TY9INE logo" />
+      </a>
+    </div>
+    <div class="container footer-top">
+      <div class="footer-columns">
+        <div class="footer-col contact">
+          <h4>CONTACT US</h4>
+          <ul>
+            <li>
+              <span class="icon pin" aria-hidden="true">📍</span> 16
+              Valifeanyianyachukwu Becca court chevron drive.
+            </li>
+            <li>
+              <span class="icon mail" aria-hidden="true">✉️</span>
+              <a href="mailto:support@followgod.africa">support@followgod.africa</a>
+            </li>
+            <li>
+              <span class="icon phone" aria-hidden="true">📞</span>
+              <a href="tel:+2347019090044">+2347019090044</a>
+            </li>
+          </ul>
+        </div>
+        <div class="footer-col links">
+          <h4>QUICK LINK</h4>
+          <ul>
+            <li><a href="#">Policies</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col sublinks">
+          <h4>SUB LINK</h4>
+          <ul>
+            <li><a href="#">FAQs</a></li>
+            <li><a href="#">Shipping & Returns</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-right">
+        <div class="socials">
+          <a class="social x" href="#" aria-label="Xreal" data-tooltip="Xreal">
+            <img src="media%20icons/xreal.png" alt="Xreal" width="36" height="36" loading="lazy" />
+          </a>
+          <a class="social instagram" href="#" aria-label="instagram" data-tooltip="Instagram">
+            <lottie-player src="media%20icons/instagram%20(1).json" background="transparent" speed="1"
+              style="width: 36px; height: 36px" loop autoplay aria-label="instagram icon"></lottie-player>
+          </a>
+
+          <a class="social tiktok" href="#" aria-label="tiktok" data-tooltip="TikTok">
+            <lottie-player src="media%20icons/tiktok.json" background="transparent" speed="1"
+              style="width: 36px; height: 36px" loop autoplay aria-label="tiktok icon"></lottie-player>
+          </a>
+          <a class="social facebook" href="#" aria-label="facebook" data-tooltip="Facebook">
+            <lottie-player src="media%20icons/facebook.json" background="transparent" speed="1"
+              style="width: 36px; height: 36px" loop autoplay aria-label="facebook icon"></lottie-player>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="site-footer-bottom">
+      <div class="container narrow bottom-inner">
+        <div>&copy; FOLLOW GOD</div>
+        <div class="made-with">Built with <span class="byund">Byund Technology</span>
+          <a class="reach-us-btn" href="mailto:chuzzyenoch@gmail.com" target="_blank" rel="noopener"
+            aria-label="Reach Us by Email">Reach Us</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="script/index.js"></script>
+</body>
+
+</html>
